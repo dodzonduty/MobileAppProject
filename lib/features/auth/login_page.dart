@@ -1,323 +1,109 @@
 // File: login_page.dart
 import 'package:flutter/material.dart';
-import 'package:project/features/auth/register_page.dart';
+import 'register_page.dart';
+import 'widgets/registerlogin_btn.dart';
+import 'widgets/registerlogin_field.dart';
+import 'widgets/registerlogin_text.dart';
+import 'widgets/registerlogin_txtbtn.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
 
+class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(color: Colors.white),
-        child: Column(
-          children: [
-            Flexible(
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 24,
-                    top: 128,
-                    child: SizedBox(
-                      width: 327, // Provide a fixed width
-                      height: 100, // Provide a fixed height
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Welcome Back ',
-                            style: TextStyle(
-                              color: Color(0xFF222222),
-                              fontSize: 24,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                          Text(
-                            'Sign In to your account',
-                            style: TextStyle(
-                              color: Color(0xFF888888),
-                              fontSize: 14,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
-                              height: 1.71,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 96,
-                    top: 536,
-                    child: SizedBox(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                "Don't have an account?",
-                                style: TextStyle(
-                                  color: Color(0xFF888888),
-                                  fontSize: 12,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => RegisterPage(),
-                                    ),
-                                  );
-                                },
-                                child: Text(
-                                  'Sign Up',
-                                  style: TextStyle(
-                                    color: Color(0xFF834746),
-                                    fontSize: 12,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),   
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 24,
-                    top: 230,
-                    child: Container(
-                      width: 327,
-                      height: 211,
-                      child: Form(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Email Address',
-                              style: TextStyle(
-                                color: Color(0xFF888888),
-                                fontSize: 12,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(32),
-                                ),
-                                hintText: 'engineering@gmail.com',
-                              ),
-                            ),
-                            SizedBox(height: 16),
-                            Text(
-                              'Password',
-                              style: TextStyle(
-                                color: Color(0xFF888888),
-                                fontSize: 12,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            TextFormField(
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(32),
-                                ),
-                                hintText: 'Enter your password',
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 15,
-                    top: 464,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Container(
-                        width: 327,
-                        height: 56,
-                        padding: const EdgeInsets.only(top: 18, bottom: 18),
-                        clipBehavior: Clip.antiAlias,
-                        decoration: ShapeDecoration(
-                          color: Color(0xFF445B70),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(32),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Login',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 24,
-                    top: 60,
-                    child: Container(
-                      width: 183,
-                      child: Row(
-                        children: [
-                          Text(
-                            'Login',
-                            style: TextStyle(
-                              color: Color(0xFF262626),
-                              fontSize: 18,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                              height: 1.78,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    child: Container(
-                      width: 375,
-                      height: 44,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: 54,
-                            height: 21,
-                            padding: const EdgeInsets.only(top: 2, bottom: 1),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: 54,
-                                  height: 18,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 24.33,
-                            height: 11.33,
-                            child: Stack(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 24,
-                    top: 575,
-                    child: Container(
-                      width: 327,
-                      child: Column(
-                        children: [
-                          Text(
-                            'Or Sign In With',
-                            style: TextStyle(
-                              color: Color(0xFF888888),
-                              fontSize: 11,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 24,
-                    top: 613,
-                    child: Container(
-                      width: 327,
-                      height: 48,
-                      padding: const EdgeInsets.only(
-                        top: 15,
-                        left: 142,
-                        right: 130,
-                        bottom: 16,
-                      ),
-                      decoration: ShapeDecoration(
-                        color: Color(0xFFF2F2F2),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Outlook',
-                            style: TextStyle(
-                              color: Color(0xFF4B4B4B),
-                              fontSize: 14,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 139,
-                    top: 628,
-                    child: Container(
-                      width: 19,
-                      height: 17,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(),
-                      child: Icon(
-                        Icons.mail,
-                        size: 19,
-                        color: Color(0xFF4B4B4B),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+      backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight +100),
+        child: Padding(
+            padding: EdgeInsets.only(top: 80),
+            child: AppBar(
+              backgroundColor: Colors.white,
+              leading: IconButton(
+                icon: Icon(Icons.chevron_left), iconSize: 30,
+                onPressed: () => Navigator.pop(context),
+                ),
+              title: RegisterLoginText(regTextContent: "Login",
+              regTextStyle: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.w800, color: Colors.black)),
+                titleSpacing: 0,
             ),
-          ],
-        ),
+          ),
       ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RegisterLoginText(regTextContent: 'Welcome',regTextStyle:TextStyle(
+                    fontSize: 24, fontWeight: FontWeight.w800, color: Colors.black)),
+                  SizedBox(height: 17,),
+                  RegisterLoginText(regTextContent: 'Sign In to your account', regTextStyle:TextStyle(
+                    fontSize: 14, color: Color(0xFF888888))),
+                  SizedBox(height: 32,),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        FormWidget(labelText: "E-mail Address", hintText: 'Enter your e-mail', keyPad: TextInputType.emailAddress,),
+                        SizedBox(height: 22,),
+                        FormWidget(labelText: "Password", hintText: 'Enter your password', keyPad: TextInputType.visiblePassword,),
+                        SizedBox(height: 3,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [RegisterloginTxtbtn(actionText: null, textButtonColor: Color(0xFF834746),
+                          onPressed: () {}, buttonText: 'Forgot Password?',)
+                        //onPressed >> navigate to forgot passowrd page] ,
+                      ]),
+                      SizedBox(height: 16,),
+                      RegLogBtn(buttonText: "Login", onPressed: () {if (_formKey.currentState!.validate()) {} }, buttonColor: Color(0xFF445B70),
+                        buttonTextColor:Colors.white),
+                      SizedBox(height: 16,),
+                      RegisterloginTxtbtn(actionText: "Don’t have an account?", textButtonColor: Color(0xFF834746),
+                      buttonText: "Sign Up", onPressed: () {
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RegisterPage()),); } ),
+                        SizedBox(height: 16,),
+                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                height: 1.0, color: Color(0xFFF2F2F2),
+                                margin: EdgeInsets.only(right: 8.0),
+                              ),
+                            ),
+                           RegisterLoginText(regTextContent: "Or Sign In With"),
+                            Expanded(
+                              child: Container(
+                                height: 1.0, color: Color(0xFFF2F2F2),
+                                margin: EdgeInsets.only(left: 8.0),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 22,),
+                        RegLogBtn(buttonText: "Outlook", onPressed: (){}, iconPath: 'assets/images/Outlook_Logo.png',
+                        buttonColor: Color(0xFFF3F3F3), buttonTextColor: Color(0xFF4B4B4B)),
+                      ]
+                    )
+                  )
+                ]
+                )
+      )
+        )
+      )
     );
   }
 }
