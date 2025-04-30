@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                         MaterialPageRoute(
                           builder: (context) => RegisterPage()),); } ),
                         SizedBox(height: 16,),
-                         Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Expanded(
@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                                 margin: EdgeInsets.only(right: 8.0),
                               ),
                             ),
-                           RegisterLoginText(regTextContent: "Or Sign In With"),
+                          RegisterLoginText(regTextContent: "Or Sign In With"),
                             Expanded(
                               child: Container(
                                 height: 1.0, color: Color(0xFFF2F2F2),
