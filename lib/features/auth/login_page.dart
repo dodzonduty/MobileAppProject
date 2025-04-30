@@ -19,9 +19,9 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight +100),
+        preferredSize: Size.fromHeight(kToolbarHeight +80),
         child: Padding(
-            padding: EdgeInsets.only(top: 80),
+            padding: EdgeInsets.only(top: 50),
             child: AppBar(
               backgroundColor: Colors.white,
               leading: IconButton(
