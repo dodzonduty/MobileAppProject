@@ -8,6 +8,8 @@ class FormWidget extends StatefulWidget {
   final String hintText;
   final IconData? suffixData;
   final TextInputType? keyPad;
+  final TextEditingController? controller; // Add controller
+  final String? Function(String?)? validator; // Add custom validator
 
   const FormWidget({
     super.key,
@@ -15,6 +17,8 @@ class FormWidget extends StatefulWidget {
     required this.hintText,
     this.suffixData,
     this.keyPad,
+    this.controller,
+    this.validator,
   });
 
   @override
@@ -31,17 +35,18 @@ class _FormWidgetState extends State<FormWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        RegisterLoginText(
-          regTextContent: widget.labelText,),
-        SizedBox(height: 15),
+        RegisterLoginText(regTextContent: widget.labelText),
+        const SizedBox(height: 15),
         TextFormField(
+          controller: widget.controller, // Use provided controller
           obscureText: _isPasswordField ? _obscureText : false,
           keyboardType: widget.keyPad ?? TextInputType.text,
-           inputFormatters: widget.keyPad == TextInputType.phone ? [FilteringTextInputFormatter.digitsOnly]
-           : null,
+          inputFormatters: widget.keyPad == TextInputType.phone
+              ? [FilteringTextInputFormatter.digitsOnly]
+              : null,
           decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: TextStyle(
+            hintStyle: const TextStyle(
               fontSize: 12.0,
               fontStyle: FontStyle.normal,
               fontWeight: FontWeight.normal,
@@ -49,31 +54,36 @@ class _FormWidgetState extends State<FormWidget> {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(32),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 color: Color(0xFFC4C4C4),
                 width: 1.0,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(32),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 color: Color(0xFF626262),
                 width: 1.0,
               ),
             ),
-            suffixIcon: _isPasswordField? IconButton(
+            suffixIcon: _isPasswordField
+                ? IconButton(
                     icon: Icon(
                       _obscureText ? Icons.visibility_off : Icons.visibility,
-                      color: Color(0xFF888888),
+                      color: const Color(0xFF888888),
                     ),
                     onPressed: () {
                       setState(() {
                         _obscureText = !_obscureText;
                       });
-                    }, )
-                    : null,
+                    },
+                  )
+                : (widget.suffixData != null
+                    ? Icon(widget.suffixData, color: const Color(0xFF888888))
+                    : null),
           ),
-          validator: (value) {
+          validator: widget.validator ?? (value) {
+            // Default validator if none provided
             if (value == null || value.isEmpty) {
               return widget.hintText;
             }

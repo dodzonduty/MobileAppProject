@@ -13,7 +13,7 @@ class LoginScreen extends StatelessWidget {
           // Background Image
           Positioned.fill(
             child: Image.asset(
-              'assets/Background.png', 
+              'assets/images/Background.png', 
               fit: BoxFit.cover,
             ),
           ),
@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'assets/Group.png',
+                        'assets/images/Group.png',
                         width: 120,
                         height: 120,
                       ),
@@ -88,7 +88,6 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-
                 // Create New Account Button
                 TextButton(
                   onPressed: () {
