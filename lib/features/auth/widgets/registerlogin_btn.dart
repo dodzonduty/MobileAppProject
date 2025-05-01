@@ -12,12 +12,9 @@ class RegLogBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get screen width
     double screenWidth = MediaQuery.of(context).size.width;
-
-    // Calculate dynamic horizontal padding based on screen width
-    double dynamicHorizontalPadding = screenWidth * 0.1;  // 10% of screen width
-    double dynamicVerticalPadding = 18.0;  // Keep vertical padding constant or adjust based on screen size
+    double dynamicHorizontalPadding = screenWidth * 0.1;
+    double dynamicVerticalPadding = 18.0;
 
     return SizedBox(
       width: width ?? double.infinity,
@@ -52,7 +49,7 @@ class RegLogBtn extends StatelessWidget {
                   fontSize: 16,
                   fontFamily: 'Inter',
                 ),
-                overflow: TextOverflow.ellipsis,  // Handle text overflow
+                overflow: TextOverflow.ellipsis,  // to handle text overflow
               ),
             ),
           ],
