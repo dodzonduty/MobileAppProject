@@ -5,7 +5,6 @@ import 'widgets/registerlogin_field.dart';
 import 'widgets/registerlogin_text.dart';
 import 'widgets/registerlogin_txtbtn.dart';
 import 'package:project/features/Services/auth/auth_service.dart';
-import 'package:project/features/auth/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -49,9 +48,8 @@ class _RegisterPageState extends State<RegisterPage> {
       final userCredential = await _authService.signInWithMicrosoft();
       if (userCredential != null) {
         print('Navigating to home page after Microsoft login');
-        if (Navigator.canPop(context)) {
           Navigator.pop(context);
-        }
+        
         Navigator.pushReplacementNamed(context, '/home');
       }
     } catch (e) {
