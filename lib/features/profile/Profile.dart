@@ -1,13 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project/features/profile/widgets/list_tile_elements.dart';
 import '../auth/widgets/registerlogin_btn.dart';
 import '../auth/widgets/registerlogin_field.dart';
 import '../auth/widgets/registerlogin_text.dart';
-import '../auth/widgets/registerlogin_txtbtn.dart';
-import 'package:project/features/Services/auth/auth_service.dart';
-import 'package:project/features/auth/login_page.dart';
 import 'package:image_picker/image_picker.dart'; // Import the image picker
 import 'dart:io'; // To handle file operations
+import 'package:flutter/services.dart'; // For platform-specific operations
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -18,7 +17,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final _formKey = GlobalKey<FormState>();
   File? _image; // To store the selected image
-
+  UserCredential? userCredential; // To store the user credential
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final pickedSource = await showModalBottomSheet<ImageSource>(
@@ -120,7 +119,7 @@ Widget build(BuildContext context) {
                   ),
                   SizedBox(height: 20),
                   RegisterLoginText(
-                    regTextContent: 'Student Name',
+                    regTextContent: userCredential.toString(),
                     regTextStyle: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w800,
@@ -198,6 +197,3 @@ Widget build(BuildContext context) {
   );
 }
 }
-
-
-  

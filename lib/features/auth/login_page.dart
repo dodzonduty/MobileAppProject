@@ -5,7 +5,6 @@ import 'widgets/registerlogin_field.dart';
 import 'widgets/registerlogin_text.dart';
 import 'widgets/registerlogin_txtbtn.dart';
 import 'package:project/features/Services/auth/auth_service.dart';
-import 'package:project/features/auth/login_page.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
