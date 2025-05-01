@@ -1,5 +1,6 @@
+// TODO Implement this library.
 import 'package:flutter/material.dart';
-import 'package:homepage/views/About_screen.dart';
+import 'package:project/features/home/About_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,18 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Widget _buildBottomNavigationBar() {
-  //   return BottomNavigationBar(
-  //     currentIndex: _selectedIndex,
-  //     onTap: _onItemTapped,
-  //     items: const [
-  //       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-  //       BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-  //       BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-  //     ],
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,13 +61,13 @@ class _HomePageState extends State<HomePage> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Image.asset(
-                            'images/Feng.jpg',
+                            'assets/images/Feng.jpg',
                             fit: BoxFit.cover,
                           ),
                         ),
                         Container(
                           height: 95,
-                          padding: const EdgeInsets.symmetric(horizontal: 51),
+                          padding: const EdgeInsets.symmetric(horizontal: 49),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
@@ -107,13 +96,13 @@ class _HomePageState extends State<HomePage> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Image.asset(
-                            'images/Tables.jpg',
-                            fit: BoxFit.cover,
+                            'assets/images/Tables.jpg',
+                            fit: BoxFit.contain,
                           ),
                         ),
                         Container(
                           height: 96,
-                          padding: const EdgeInsets.symmetric(horizontal: 38),
+                          padding: const EdgeInsets.symmetric(horizontal: 34),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
@@ -150,7 +139,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      // bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 }
@@ -162,7 +150,7 @@ class WelcomeBackRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Image.asset('images/Vector.jpg'),
+        Image.asset('assets/images/Vector.jpg'),
         const SizedBox(width: 8),
         const Text(
           'Welcome Back',
@@ -332,12 +320,11 @@ class _SearchBoxState extends State<SearchBox> {
   void _filterValues(String query) {
     setState(() {
       _searchText = query;
-      _filteredValues =
-          _values
-              .where(
-                (value) => value.toLowerCase().contains(query.toLowerCase()),
-              )
-              .toList();
+      _filteredValues = _values
+          .where(
+            (value) => value.toLowerCase().contains(query.toLowerCase()),
+          )
+          .toList();
     });
   }
 

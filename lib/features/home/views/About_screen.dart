@@ -18,7 +18,7 @@ class AboutScreen extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15.0), // Rounded corners
                   child: Image.asset(
-                    'images/Feng_big.png', // Local image
+                    'assets/images/Feng_big.png', // Local image
                     fit: BoxFit.cover, // Cover the entire container
                     height: 200, // Fixed height for the image
                   ),
