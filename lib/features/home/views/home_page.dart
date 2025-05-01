@@ -1,6 +1,6 @@
 // TODO Implement this library.
 import 'package:flutter/material.dart';
-import 'package:project/features/home/About_screen.dart';
+import 'about_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

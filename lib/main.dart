@@ -4,8 +4,9 @@ import 'features/auth/login_page.dart';
 import 'features/auth/register_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'features/home/home_page.dart'
-    as home1; // Alias to resolve naming conflict
+import 'features/home/views/home_page.dart'
+    as home1; // Import the home.dart file with an alias
+// Alias to resolve naming conflict
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
