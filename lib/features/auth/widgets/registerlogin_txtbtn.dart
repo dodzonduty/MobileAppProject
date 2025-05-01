@@ -12,19 +12,25 @@ class RegisterloginTxtbtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            RegisterLoginText(
-              regTextContent: actionText ?? "",),
-            if (actionText != null)
-            SizedBox(width: 5), //for some reason it doesn't do anything :(
-            TextButton(onPressed: onPressed,
-            child: RegisterLoginText(regTextContent: buttonText,
-            regTextStyle: TextStyle(fontWeight: FontWeight.w800, color: textButtonColor)
-            )
-            )
-          ],
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        // Display the actionText if not null
+        if (actionText != null)
+          RegisterLoginText(regTextContent: actionText ?? ""),
+        if (actionText != null) 
+          SizedBox(width: 8),
+        TextButton(
+          onPressed: onPressed,
+          child: RegisterLoginText(
+            regTextContent: buttonText,
+            regTextStyle: TextStyle(
+              fontWeight: FontWeight.w800, 
+              color: textButtonColor,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -70,40 +70,43 @@ Future<void> _handleMicrosoftSignIn() async {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight + 100),
-        child: Padding(
-          padding: EdgeInsets.only(top: 80),
-          child: AppBar(
-            backgroundColor: Colors.white,
-            leading: IconButton(
-              icon: Icon(Icons.chevron_left),
-              iconSize: 30,
-              onPressed: () => Navigator.pop(context),
-            ),
-            title: RegisterLoginText(
-              regTextContent: "Register",
-              regTextStyle: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-                color: Colors.black,
-              ),
-            ),
-            titleSpacing: 0,
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.white,
+    appBar: PreferredSize(
+      preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.15),
+      child: Padding(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        child: AppBar(
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            icon: Icon(Icons.chevron_left),
+            iconSize: 30,
+            onPressed: () => Navigator.pop(context),
           ),
+          title: RegisterLoginText(
+            regTextContent: "Register",
+            regTextStyle: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+            ),
+          ),
+          titleSpacing: 0,
         ),
       ),
+    ),
       body: SafeArea(
         child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height -
+                  MediaQuery.of(context).padding.top -
+                  kToolbarHeight,
+            ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 RegisterLoginText(
@@ -127,30 +130,34 @@ Future<void> _handleMicrosoftSignIn() async {
                   key: _formKey,
                   child: Column(
                     children: [
-                      FormWidget(
-                        labelText: "First Name",
-                        hintText: 'Enter your first name',
-                        keyPad: TextInputType.name,
-                        controller: _firstNameController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your first name';
-                          }
-                          return null;
-                        },
+                      Row(
+                          children: [
+                            Flexible(
+                              child:FormWidget(labelText: "First Name",
+                              hintText: 'Enter your first name',
+                              keyPad: TextInputType.name,
+                              controller: _firstNameController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your first name'; }
+                                  return null;},
+                      )
                       ),
-                      SizedBox(height: 22),
-                      FormWidget(
-                        labelText: "Last Name",
-                        hintText: 'Enter your last name',
-                        keyPad: TextInputType.name,
-                        controller: _lastNameController,
-                        validator: (value) {
+                            SizedBox(width: 9,),
+                            Flexible(child:FormWidget(
+                              labelText: "Last Name",
+                              hintText: 'Enter your last name',
+                              keyPad: TextInputType.name,
+                              controller: _lastNameController,
+                              validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your last name';
                           }
                           return null;
                         },
+                      )
+                      )
+                      ],
                       ),
                       SizedBox(height: 22),
                       FormWidget(
@@ -179,7 +186,6 @@ Future<void> _handleMicrosoftSignIn() async {
                             return 'Please enter your phone number';
                           }
                           if (!RegExp(r'^(\+20|0)?1[0-2,5]\d{8}$').hasMatch(value)) {
-                            //r'^(\+20|0)?1[0-2,5]\d{8}$'
                             return 'Please enter a valid phone number';
                           }
                           return null;
@@ -210,18 +216,15 @@ Future<void> _handleMicrosoftSignIn() async {
                       ),
                       SizedBox(height: 16),
                       RegisterloginTxtbtn(
-                        actionText: "Already have an account?",
-                        textButtonColor: Color(0xFF834746),
-                        buttonText: "Sign In",
+                        actionText: "Already have an account?", 
+                        textButtonColor: Color(0xFF445B70),
+                        buttonText: " Login ",
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                            ),
-                          );
-                        },
-                      ),
+                            builder: (context) => LoginPage(), ));}
+                              ),
                       SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -251,6 +254,7 @@ Future<void> _handleMicrosoftSignIn() async {
                         buttonColor: Color(0xFFF3F3F3),
                         buttonTextColor: Color(0xFF4B4B4B),
                       ),
+                      SizedBox(height: 24), // Bottom padding for safe scroll
                     ],
                   ),
                 ),
@@ -259,6 +263,6 @@ Future<void> _handleMicrosoftSignIn() async {
           ),
         ),
       ),
-    );
-  }
+);
+}
 }
