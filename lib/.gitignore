@@ -1,0 +1,1 @@
+"build/"  echo ".dart_tool/"  echo ".idea/"  echo "*.iml"  echo ".flutter-plugins"  echo "pubspec.lock"  git add .gitignore git commit -m "Added .gitignore" git push origin master
