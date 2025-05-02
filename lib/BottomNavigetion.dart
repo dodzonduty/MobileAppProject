@@ -5,7 +5,6 @@ typedef OnItemTapped = void Function(int index);
 class BottomNavigationBarWidget extends StatelessWidget {
   final int selectedIndex;
   final OnItemTapped onItemTapped;
-
   const BottomNavigationBarWidget({
     super.key,
     required this.selectedIndex,
@@ -25,19 +24,19 @@ class BottomNavigationBarWidget extends StatelessWidget {
       backgroundColor: Colors.white,
       items: const [
         BottomNavigationBarItem(
-          icon: ImageIcon(AssetImage('assets/images/house.png')),
+          icon: Icon(Icons.home_outlined),
           label: '',
         ),
         BottomNavigationBarItem(
-          icon: ImageIcon(AssetImage('assets/images/book-open-text.png')),
+          icon: Icon(Icons.menu_book_rounded),
           label: '',
         ),
         BottomNavigationBarItem(
-          icon: ImageIcon(AssetImage('assets/images/calendar-days.png')),
+          icon: Icon(Icons.calendar_month_outlined),
           label: '',
         ),
         BottomNavigationBarItem(
-          icon: ImageIcon(AssetImage('assets/images/bus.png')),
+          icon: Icon(Icons.directions_bus_sharp),
           label: '',
         ),
         BottomNavigationBarItem(
