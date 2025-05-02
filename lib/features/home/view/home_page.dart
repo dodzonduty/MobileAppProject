@@ -1,7 +1,7 @@
-// TODO Implement this library.
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'about_screen.dart';
-
+import '../../Services/auth/auth_service.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -10,6 +10,51 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String username = 'Guest';
+  @override
+  void initState(){
+    super.initState();
+    _loadUsername();
+  }
+  Future<void> _loadUsername() async {
+    final authService = AuthService();
+    final user = authService.getCurrentUser();
+    if (user != null) {
+      String? email = user.email;
+      if (email != null) {
+        try {
+          final doc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+          if (doc.exists && doc.data()?['firstName'] != null) {
+            setState(() {
+              username = (doc.data()!['firstName'] as String).capitalize();
+            });
+            return; 
+            
+          }
+        } catch (e) {
+          
+          print('Error fetching Firestore data: $e');
+        }
+        
+        final provider = user.providerData
+            .firstWhere((data) => data.providerId != 'firebase', orElse: () => user.providerData.first)
+            .providerId;
+        if (provider == 'microsoft.com') {
+          
+          final regex = RegExp(r'([a-zA-Z]+)\d+@feng\.bu\.edu\.eg');
+          final match = regex.firstMatch(email);
+          setState(() {
+            username = match?.group(1)?.capitalize() ?? email.split('@').first;
+          });
+        } else {
+          
+          setState(() {
+            username = email.split('@').first;
+          });
+        }
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +65,11 @@ class _HomePageState extends State<HomePage> {
             color: Colors.white,
             child: Stack(
               children: [
-                const Positioned(
+                Positioned(
                   left: 24,
                   top: 76,
                   child: Text(
-                    'Student',
+                    username,
                     style: TextStyle(
                       color: Color(0xFF0A2533),
                       fontSize: 24,
@@ -34,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                const Positioned(left: 30, top: 56, child: WelcomeBackRow()),
+                Positioned(left: 30, top: 56, child: WelcomeBackRow(username : username)),
                 Positioned(
                   left: 321,
                   top: 70,
@@ -43,7 +88,6 @@ class _HomePageState extends State<HomePage> {
                     children: [NotificationIcon()],
                   ),
                 ),
-
                 // Images and other content
                 Positioned(
                   left: 38,
@@ -145,7 +189,8 @@ class _HomePageState extends State<HomePage> {
 }
 
 class WelcomeBackRow extends StatelessWidget {
-  const WelcomeBackRow({super.key});
+  final String username;
+  const WelcomeBackRow({super.key, required this.username});
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +198,7 @@ class WelcomeBackRow extends StatelessWidget {
       children: [
         Image.asset('assets/images/Vector.jpg'),
         const SizedBox(width: 8),
-        const Text(
+        Text(
           'Welcome Back',
           style: TextStyle(
             color: Color(0xFF0A2533),
@@ -497,5 +542,10 @@ class NewsImageBox extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+extension StringExtension on String {
+  String capitalize() {
+    return isNotEmpty ? '${this[0].toUpperCase()}${substring(1)}' : this;
   }
 }
