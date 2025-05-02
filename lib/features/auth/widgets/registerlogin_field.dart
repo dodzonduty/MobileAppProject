@@ -10,6 +10,7 @@ class FormWidget extends StatefulWidget {
   final TextInputType? keyPad;
   final TextEditingController? controller; // Add controller
   final String? Function(String?)? validator; // Add custom validator
+  final Widget? prefixWidget;
 
   const FormWidget({
     super.key,
@@ -18,7 +19,7 @@ class FormWidget extends StatefulWidget {
     this.suffixData,
     this.keyPad,
     this.controller,
-    this.validator,
+    this.validator, this.prefixWidget,
   });
 
   @override
@@ -42,15 +43,15 @@ class _FormWidgetState extends State<FormWidget> {
           obscureText: _isPasswordField ? _obscureText : false,
           keyboardType: widget.keyPad ?? TextInputType.text,
           inputFormatters: widget.keyPad == TextInputType.phone
-              ? [FilteringTextInputFormatter.digitsOnly]
-              : null,
+          ? [FilteringTextInputFormatter.allow(RegExp(r'[\d+\-]'))]
+          : null,
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: const TextStyle(
               fontSize: 12.0,
               fontStyle: FontStyle.normal,
               fontWeight: FontWeight.normal,
-              color: Color(0xFFC4C4C4),
+              color: Color(0xFFC4C4C4),   
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(32),
@@ -66,6 +67,12 @@ class _FormWidgetState extends State<FormWidget> {
                 width: 1.0,
               ),
             ),
+           prefixIcon: widget.prefixWidget != null
+           ? Padding(
+            padding: const EdgeInsets.only(left: 12, right: 4),
+            child: widget.prefixWidget,
+            )
+             : null,
             suffixIcon: _isPasswordField
                 ? IconButton(
                     icon: Icon(

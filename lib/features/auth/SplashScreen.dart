@@ -1,113 +1,95 @@
 import 'package:flutter/material.dart';
+import 'package:project/features/auth/widgets/registerlogin_text.dart';
+import 'package:project/features/auth/widgets/registerlogin_txtbtn.dart';
 import 'login_page.dart';  // Import Login Page
-import 'register_page.dart'; // Import Register Page
+import 'register_page.dart';
+import 'widgets/registerlogin_btn.dart'; // Import Register Page
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Stack(
-        children: [
-          // Background Image
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/Background.png', 
-              fit: BoxFit.cover,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/Background.png'),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.black.withOpacity(0.4),
+              BlendMode.darken,
             ),
           ),
-          // Dark Overlay (for better contrast)
-          Positioned.fill(
-            child: Container(
-              color: Colors.black.withOpacity(0.4), 
-            ),
-          ),
-          // Centered Logo and Buttons
-          Center(
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 24),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  width: 200,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    border: Border.all(style: BorderStyle.none, width: 0), 
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/Group.png',
-                        width: 120,
-                        height: 120,
-                      ),
-                      SizedBox(height: 12),
-                      Text(
-                        "Campus Companion",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        softWrap: false,
-                        "Faculty of Engineering Shoubra",
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 50),
-
-                // Login Button
-                SizedBox(
-                  width: 250,
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueGrey,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
+                // Logo and Title
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/Group.png',
+                      width: screenWidth * 0.5,
+                      height: screenWidth * 0.5,
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    },
-                    child: Text(
-                      "Login",
-                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    SizedBox(height: 16),
+                    RegisterLoginText(regTextContent: "Campus Companion",
+                    regTextStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      )
                     ),
-                  ),
+                    RegisterLoginText(regTextContent: "Faculty of Engineering - Shoubra",
+                    regTextStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      )
+                    ),
+                  ],
                 ),
-                SizedBox(height: 20),
-                // Create New Account Button
-                TextButton(
+                SizedBox(height: screenHeight * 0.2),
+                RegLogBtn(
+                  buttonText: "Login",
+                  onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginPage(),
+                                  ),
+                                );
+                              },
+                  buttonColor: Color(0xFF445B70),
+                  buttonTextColor: Colors.white,
+                  ),
+                SizedBox(height: 16),
+                RegisterloginTxtbtn(
+                  textButtonColor: Colors.white,
+                  buttonText: "Create New Account",
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => RegisterPage()),
-                    );
-                  },
-                  child: Text(
-                    "Create New Account",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
+                      MaterialPageRoute(
+                        builder: (context) => RegisterPage(),
+                        ),
+                        );
+                        },
+                        ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
