@@ -7,10 +7,10 @@ class BottomNavigationBarWidget extends StatelessWidget {
   final OnItemTapped onItemTapped;
 
   const BottomNavigationBarWidget({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.onItemTapped,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +22,22 @@ class BottomNavigationBarWidget extends StatelessWidget {
       onTap: onItemTapped,
       showSelectedLabels: true,
       showUnselectedLabels: true,
+      backgroundColor: Colors.white,
       items: const [
         BottomNavigationBarItem(
-          icon: ImageIcon(AssetImage('images/house 1.png')),
+          icon: ImageIcon(AssetImage('assets/images/house.png')),
           label: '',
         ),
         BottomNavigationBarItem(
-          icon: ImageIcon(AssetImage('images/book-open-text 1.png')),
+          icon: ImageIcon(AssetImage('assets/images/book-open-text.png')),
           label: '',
         ),
         BottomNavigationBarItem(
-          icon: ImageIcon(AssetImage('images/calendar-days 1.png')),
+          icon: ImageIcon(AssetImage('assets/images/calendar-days.png')),
           label: '',
         ),
         BottomNavigationBarItem(
-          icon: ImageIcon(AssetImage('images/bus 1.png')),
+          icon: ImageIcon(AssetImage('assets/images/bus.png')),
           label: '',
         ),
         BottomNavigationBarItem(

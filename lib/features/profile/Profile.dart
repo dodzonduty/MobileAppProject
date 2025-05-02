@@ -7,7 +7,7 @@ import '../auth/widgets/registerlogin_field.dart';
 import '../auth/widgets/registerlogin_text.dart';
 import 'package:image_picker/image_picker.dart'; // Import the image picker
 import 'dart:io'; // To handle file operations
-import 'package:flutter/services.dart'; // For platform-specific operations
+// For platform-specific operations
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

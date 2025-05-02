@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:project/features/auth/register_page.dart';
 import 'widgets/registerlogin_btn.dart';
@@ -5,6 +7,7 @@ import 'widgets/registerlogin_field.dart';
 import 'widgets/registerlogin_text.dart';
 import 'widgets/registerlogin_txtbtn.dart';
 import 'package:project/features/Services/auth/auth_service.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -95,7 +98,11 @@ class _LoginPageState extends State<LoginPage> {
               automaticallyImplyLeading: false,
               expandedHeight: 80,
               flexibleSpace: Padding(
-                padding: EdgeInsets.only(top: 10, left: 3, right: 20,),
+                padding: EdgeInsets.only(
+                  top: 10,
+                  left: 3,
+                  right: 20,
+                ),
                 child: SafeArea(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,7 +171,8 @@ class _LoginPageState extends State<LoginPage> {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter your email';
                                   }
-                                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                                      .hasMatch(value)) {
                                     return 'Please enter a valid email';
                                   }
                                   return null;
@@ -230,7 +238,8 @@ class _LoginPageState extends State<LoginPage> {
                                       margin: EdgeInsets.only(right: 8.0),
                                     ),
                                   ),
-                                  RegisterLoginText(regTextContent: "Or Sign In With"),
+                                  RegisterLoginText(
+                                      regTextContent: "Or Sign In With"),
                                   Expanded(
                                     child: Container(
                                       height: 1.0,
