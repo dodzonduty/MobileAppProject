@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:project/features/profile/Profile.dart';
+import 'login_page.dart';
 import 'widgets/registerlogin_btn.dart';
 import 'widgets/registerlogin_field.dart';
 import 'widgets/registerlogin_text.dart';
 import 'widgets/registerlogin_txtbtn.dart';
 import 'package:project/features/Services/auth/auth_service.dart';
+import 'package:country_flags/country_flags.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -196,7 +198,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             SizedBox(height: 22),
                             FormWidget(
                               labelText: "Phone Number",
-                              hintText: 'Enter your phone number',
+                              hintText: 'Phone number as 1XXXXXXXX',
                               keyPad: TextInputType.phone,
                               controller: _phoneNumberController,
                               validator: (value) {
@@ -204,10 +206,22 @@ class _RegisterPageState extends State<RegisterPage> {
                                   return 'Please enter your phone number';
                                 }
                                 if (!RegExp(r'^(\+20|0)?1[0-2,5]\d{8}$').hasMatch(value)) {
-                                  return 'Please enter a valid phone number';
+                                  return "Phone must have 9 digits after 1 (e.g., 1XXXXXXXX)";
                                 }
                                 return null;
                               },
+                              prefixWidget: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CountryFlag.fromCountryCode('EG',
+                                  height: 20, width: 28,
+                                  shape:  const RoundedRectangle(6)),
+                                  SizedBox(width: 6),
+                                  Text('+20', style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                                  ],
+                                  ),
                             ),
                             SizedBox(height: 22),
                             FormWidget(
@@ -241,8 +255,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: //(context) => ProfilePage()
-                                    (context) => ProfilePage(), //this line navigates just to view the profile page, it's definitely wrong
+                                    builder: (context) => LoginPage(),
                                   ),
                                 );
                               },

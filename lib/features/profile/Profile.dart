@@ -1,3 +1,4 @@
+import 'package:country_flags/country_flags.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project/features/profile/widgets/list_tile_elements.dart';
@@ -16,6 +17,10 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final _formKey = GlobalKey<FormState>();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
   File? _image; // To store the selected image
   UserCredential? userCredential; // To store the user credential
   Future<void> _pickImage() async {
@@ -139,43 +144,84 @@ Widget build(BuildContext context) {
                   Form(
                     key: _formKey,
                     child: Column(
+                    children: [
+                      Row(
                       children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: FormWidget(
-                                labelText: "First Name",
-                                hintText: 'Enter your first name',
-                                keyPad: TextInputType.name,
-                              ),
+                        Flexible(
+                        child: FormWidget(
+                            labelText: "First Name",
+                            hintText: 'Enter your first name',
+                            keyPad: TextInputType.name,
+                            controller: _firstNameController,
+                            validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your first name';
+                                }
+                                return null;
+                                    },
+                                  ),
+                                ),
+                                SizedBox(width: 9),
+                                Flexible(
+                                  child: FormWidget(
+                                    labelText: "Last Name",
+                                    hintText: 'Enter your last name',
+                                    keyPad: TextInputType.name,
+                                    controller: _lastNameController,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter your last name';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                            SizedBox(width: 9),
-                            Expanded(
-                              child: FormWidget(
-                                labelText: "Last Name",
-                                hintText: 'Enter your last name',
-                                keyPad: TextInputType.name,
-                              ),
+                            SizedBox(height: 22),
+                            FormWidget(
+                              labelText: "E-mail Address",
+                              hintText: 'Enter your e-mail',
+                              keyPad: TextInputType.emailAddress,
+                              controller: _emailController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your email';
+                                }
+                                if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                                  return 'Please enter a valid email';
+                                }
+                                return null;
+                              },
                             ),
-                          ],
-                        ),
-                        FormWidget(
-                          labelText: "Username",
-                          hintText: 'Enter your username',
-                          keyPad: TextInputType.text,
-                        ),
                         SizedBox(height: 22),
                         FormWidget(
-                          labelText: "E-mail Address",
-                          hintText: 'Enter your e-mail',
-                          keyPad: TextInputType.emailAddress,
-                        ),
-                        SizedBox(height: 22),
-                        FormWidget(
-                          labelText: "Phone Number",
-                          hintText: 'Enter your phone number',
-                          keyPad: TextInputType.phone,
-                        ),
+                              labelText: "Phone Number",
+                              hintText: 'Phone number as 1XXXXXXXX',
+                              keyPad: TextInputType.phone,
+                              controller: _phoneNumberController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your phone number';
+                                }
+                                if (!RegExp(r'^(\+20|0)?1[0-2,5]\d{8}$').hasMatch(value)) {
+                                  return "Phone must have 9 digits after 1 (e.g., 1XXXXXXXX)";
+                                }
+                                return null;
+                              },
+                              prefixWidget: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CountryFlag.fromCountryCode('EG',
+                                  height: 20, width: 28,
+                                  shape:  const RoundedRectangle(6)),
+                                  SizedBox(width: 6),
+                                  Text('+20', style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black)),
+                                  ],
+                                  ),
+                            ),
                         SizedBox(height: 22),
                         RegLogBtn(
                           buttonText: "Save Changes",
