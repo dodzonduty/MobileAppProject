@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project/features/profile/Profile.dart';
 import 'login_page.dart';
 import 'widgets/registerlogin_btn.dart';
 import 'widgets/registerlogin_field.dart';
