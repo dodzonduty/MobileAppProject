@@ -8,6 +8,7 @@ import 'firebase_options.dart';
 import 'package:project/features/home/view/home_page.dart' as home1;
 import 'features/events/view/root_screen.dart';
 import 'BottomNavigetion.dart';
+import 'features/transport/transport.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +48,7 @@ class _MainNavigationState extends State<MainNavigation> {
     home1.HomePage(),
     PlaceholderWidget(label: 'Library'),
     RootScreen(),
-    PlaceholderWidget(label: 'Transit'),
+    TransportationPage(),
     ProfilePage(),
   ];
 
