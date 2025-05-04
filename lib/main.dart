@@ -9,6 +9,7 @@ import 'features/events/view/root_screen.dart';
 import 'features/transport/transport.dart';
 import 'BottomNavigetion.dart';
 import 'features/database/Database.dart'; // Updated import name
+import 'features/transport/transport.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
