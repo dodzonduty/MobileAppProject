@@ -8,6 +8,7 @@ import 'firebase_options.dart';
 import 'package:project/features/home/view/home_page.dart' as home1;
 import 'features/events/view/root_screen.dart';
 import 'BottomNavigetion.dart';
+// ignore: unused_import
 import 'features/transport/transport.dart';
 import 'features/notifications/Notifications.dart';
 
@@ -58,7 +59,7 @@ class _HomePageWithNavigationState extends State<HomePageWithNavigation> {
     RootScreen(
       onHome: () => mainNavigationKey.currentState?.updateSelectedIndex(0),
     ),
-    const PlaceholderWidget(label: 'Transit'),
+    TransportationPage(),
     ProfilePage(),
   ];
 
@@ -97,7 +98,7 @@ class _MainNavigationState extends State<MainNavigation> {
     RootScreen(
       onHome: () => mainNavigationKey.currentState?.updateSelectedIndex(0),
     ),
-    const PlaceholderWidget(label: 'Transit'),
+    TransportationPage(),
     ProfilePage(),
   ];
 
