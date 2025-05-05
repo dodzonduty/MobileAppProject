@@ -9,12 +9,15 @@ import 'package:project/features/home/view/home_page.dart' as home1;
 import 'features/events/view/root_screen.dart';
 import 'BottomNavigetion.dart';
 import 'features/transport/transport.dart';
+import 'features/notifications/Notifications.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  final notificationService = NotificationService();
+  await notificationService.init();
   runApp(const MyApp());
 }
 

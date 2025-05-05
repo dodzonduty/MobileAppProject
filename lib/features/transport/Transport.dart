@@ -34,7 +34,14 @@ class _TransportationPageState extends State<TransportationPage> {
         elevation: 1,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+          // Navigate to the home page and clear the navigation stack
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/home', // Replace with your home page route name
+            (Route<dynamic> route) => false, // Removes all previous routes
+          );
+        },
         ),
       ),
       backgroundColor: const Color(0xFFF5F5F5),
