@@ -8,8 +8,6 @@ import 'firebase_options.dart';
 import 'package:project/features/home/view/home_page.dart' as home1;
 import 'features/events/view/root_screen.dart';
 import 'BottomNavigetion.dart';
-// ignore: unused_import
-import 'features/transport/transport.dart';
 import 'features/notifications/Notifications.dart';
 import 'features/database/Database.dart';
 import 'features/transport/Transport.dart';
