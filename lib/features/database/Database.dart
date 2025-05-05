@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -9,9 +11,7 @@ class DatabaseHelper {
   static Database? _db;
 
   Future<Database?> get db async {
-    if (_db == null) {
-      _db = await initialDb();
-    }
+    _db ??= await initialDb();
     return _db;
   }
 
@@ -135,13 +135,13 @@ class DatabaseHelper {
     // Insert session data
     List<String> sessionQueries = [
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time, class_no)
-         VALUES (10613, 'CCE414', 'DR: Mohammed Hussien', 'Lecture', 'Sunday', '9:00', '10:30', 'NP200')''',
+        VALUES (10613, 'CCE414', 'DR: Mohammed Hussien', 'Lecture', 'Sunday', '9:00', '10:30', 'NP200')''',
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time, class_no)
-         VALUES (10545, 'GEN301', 'DR: Amr Hanafy', 'Lecture', 'Sunday', '12:10', '03:40', 'NP100')''',
+        VALUES (10545, 'GEN301', 'DR: Amr Hanafy', 'Lecture', 'Sunday', '12:10', '03:40', 'NP100')''',
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time, class_no)
-         VALUES (10551, 'GEN302', 'DR: Mahmoud Salah & DR: Amani', 'Lecture', 'Wednesday', '03:45', '05:15', 'NP100')''',
+        VALUES (10551, 'GEN302', 'DR: Mahmoud Salah & DR: Amani', 'Lecture', 'Wednesday', '03:45', '05:15', 'NP100')''',
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time, class_no)
-         VALUES (10614, 'CCE414', 'ENG: Mostafa Amin', 'Section', 'Tuesday', '09:00', '10:30', 'NP200')'''
+        VALUES (10614, 'CCE414', 'ENG: Mostafa Amin', 'Section', 'Tuesday', '09:00', '10:30', 'NP200')'''
     ];
 
     for (String query in sessionQueries) {
