@@ -19,22 +19,7 @@ class _AboutScreenState extends State<AboutScreen> {
     setState(() {
       _selectedIndex = index;
     });
-    switch (index) {
-      case 0:
-      case 1:
-      case 3:
-      case 4:
-        Navigator.pushReplacementNamed(
-          context,
-          '/home',
-          arguments: {'selectedIndex': index},
-        );
-        break;
-      case 2:
-        Navigator.pushReplacementNamed(context, '/home',
-            arguments: {'selectedIndex': index});
-        break;
-    }
+    Navigator.pushNamed(context, '/home', arguments: {'selectedIndex': index});
   }
 
   @override
