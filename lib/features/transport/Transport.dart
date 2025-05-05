@@ -26,60 +26,89 @@ class _TransportationPageState extends State<TransportationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Transportation'),
-        centerTitle: false,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 1,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-          // Navigate to the home page and clear the navigation stack
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            '/home', // Replace with your home page route name
-            (Route<dynamic> route) => false, // Removes all previous routes
-          );
-        },
-        ),
-      ),
       backgroundColor: const Color(0xFFF5F5F5),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: _TransportationOptionCard(
-                    label: 'Bus',
-                    imagePath: 'assets/images/bus.jpg',
-                    onTap: () => showBusRoutesPopup(context),
-                  ),
+      body: SafeArea(
+        child: CustomScrollView(
+        slivers: [
+          // SliverAppBar that disappears on scroll
+          SliverAppBar(
+            pinned: false,
+            floating: true,
+            snap: true,
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            expandedHeight: 80,
+            flexibleSpace: Padding(
+              padding: EdgeInsets.only(top: 16, left: 3, right: 20),
+              child: SafeArea(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.chevron_left,
+                          size: 30),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Edit Profile",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: _TransportationOptionCard(
-                    label: 'Metro',
-                    imagePath: 'assets/images/metro.jpg',
-                    onTap: () => showMetroRoutesPopup(context),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.asset(
-                'assets/images/map.jpg',
-                height: 400,
-                width: double.infinity,
-                fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(height: 16),
-            MapButton(currentPosition: locationModel.currentPosition),
+          ),
+          SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: _TransportationOptionCard(
+                      label: 'Bus',
+                      imagePath: 'assets/images/bus.jpg',
+                      onTap: () => showBusRoutesPopup(context),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _TransportationOptionCard(
+                      label: 'Metro',
+                      imagePath: 'assets/images/metro.jpg',
+                      onTap: () => showMetroRoutesPopup(context),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  'assets/images/map.jpg',
+                  height: 400,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(height: 16),
+              MapButton(currentPosition: locationModel.currentPosition),
+            ],
+          ),
+        ),
+      ),
           ],
         ),
       ),
