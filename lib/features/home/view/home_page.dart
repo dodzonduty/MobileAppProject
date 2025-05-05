@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'about_screen.dart';
 import '../../Services/auth/auth_service.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -12,10 +13,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String username = 'Guest';
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _loadUsername();
   }
+
   Future<void> _loadUsername() async {
     final authService = AuthService();
     final user = authService.getCurrentUser();
@@ -23,31 +25,31 @@ class _HomePageState extends State<HomePage> {
       String? email = user.email;
       if (email != null) {
         try {
-          final doc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+          final doc = await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .get();
           if (doc.exists && doc.data()?['firstName'] != null) {
             setState(() {
               username = (doc.data()!['firstName'] as String).capitalize();
             });
-            return; 
-            
+            return;
           }
         } catch (e) {
-          
           print('Error fetching Firestore data: $e');
         }
-        
+
         final provider = user.providerData
-            .firstWhere((data) => data.providerId != 'firebase', orElse: () => user.providerData.first)
+            .firstWhere((data) => data.providerId != 'firebase',
+                orElse: () => user.providerData.first)
             .providerId;
         if (provider == 'microsoft.com') {
-          
           final regex = RegExp(r'([a-zA-Z]+)\d+@feng\.bu\.edu\.eg');
           final match = regex.firstMatch(email);
           setState(() {
             username = match?.group(1)?.capitalize() ?? email.split('@').first;
           });
         } else {
-          
           setState(() {
             username = email.split('@').first;
           });
@@ -55,6 +57,7 @@ class _HomePageState extends State<HomePage> {
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +82,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                Positioned(left: 30, top: 56, child: WelcomeBackRow(username : username)),
+                Positioned(
+                    left: 30,
+                    top: 56,
+                    child: WelcomeBackRow(username: username)),
                 Positioned(
                   left: 321,
                   top: 70,
@@ -344,14 +350,14 @@ class SearchBox extends StatefulWidget {
 
 class _SearchBoxState extends State<SearchBox> {
   final List<String> _values = [
-    'Apple',
-    'Banana',
-    'Cherry',
-    'Date',
-    'Elderberry',
-    'Fig',
-    'Grape',
-    'Honeydew',
+    'IEEE',
+    'MSP',
+    'ICPC',
+    'Shoubra Engineering Students Union',
+    'GDG',
+    'SRT',
+    'Table ',
+    'Profile',
   ];
 
   List<String> _filteredValues = [];
@@ -537,13 +543,14 @@ class NewsImageBox extends StatelessWidget {
       height: 80,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage("https://placehold.co/82x80"),
+          image: AssetImage('assets/images/news1.png'),
           fit: BoxFit.cover,
         ),
       ),
     );
   }
 }
+
 extension StringExtension on String {
   String capitalize() {
     return isNotEmpty ? '${this[0].toUpperCase()}${substring(1)}' : this;

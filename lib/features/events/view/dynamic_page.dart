@@ -35,110 +35,115 @@ class DynamicPage extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
         elevation: 0,
-        leading: const BackButton(color: Colors.black87),
+        leading: BackButton(onPressed: () {
+          Navigator.pop(context);
+        }),
         title: Text(
           title,
           style: const TextStyle(color: Colors.black87, fontSize: 20),
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EventPage(imageAsset: imageAsset),
+        child: Container(
+          color: Colors.white,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EventPage(imageAsset: imageAsset),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                  );
-                },
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 4,
-                  clipBehavior: Clip.hardEdge,
-                  color: imageAsset.contains('4.png')
-                      ? Colors.black
-                      : Colors.white,
-                  child: Image.asset(
-                    imageAsset,
-                    width: 350,
-                    height: 180,
-                    fit: BoxFit.contain,
+                    elevation: 4,
+                    clipBehavior: Clip.hardEdge,
+                    color: imageAsset.contains('4.png')
+                        ? Colors.black
+                        : Colors.white,
+                    child: Image.asset(
+                      imageAsset,
+                      width: 350,
+                      height: 180,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
-              ),
 
-              const SizedBox(height: 24),
+                const SizedBox(height: 24),
 
-              // 2) Description Text
-              Text(
-                description,
-                style: const TextStyle(fontSize: 16, height: 1.5),
-              ),
+                // 2) Description Text
+                Text(
+                  description,
+                  style: const TextStyle(fontSize: 16, height: 1.5),
+                ),
 
-              const SizedBox(height: 24),
+                const SizedBox(height: 24),
 
-              // 3) Buttons in a 2-column Wrap
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  final buttonWidth = (constraints.maxWidth - 16) / 2;
-                  return Wrap(
-                    spacing: 16,
-                    runSpacing: 16,
-                    children: actions.map((action) {
-                      return SizedBox(
-                        width: buttonWidth,
-                        height: 56,
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            if (action.label == 'Events') {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      EventPage(imageAsset: imageAsset),
-                                ),
-                              );
-                            } else if (action.label == 'Join Us') {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => JoinUsPage(),
-                                ),
-                              );
-                            }
-                          },
-                          icon: action.icon,
-                          label: Text(
-                            action.label,
-                            style: const TextStyle(
-                              color: Colors.black87,
-                              fontSize: 16,
+                // 3) Buttons in a 2-column Wrap
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final buttonWidth = (constraints.maxWidth - 16) / 2;
+                    return Wrap(
+                      spacing: 16,
+                      runSpacing: 16,
+                      children: actions.map((action) {
+                        return SizedBox(
+                          width: buttonWidth,
+                          height: 56,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              if (action.label == 'Events') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        EventPage(imageAsset: imageAsset),
+                                  ),
+                                );
+                              } else if (action.label == 'Join Us') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => JoinUsPage(),
+                                  ),
+                                );
+                              }
+                            },
+                            icon: action.icon,
+                            label: Text(
+                              action.label,
+                              style: const TextStyle(
+                                color: Colors.black87,
+                                fontSize: 16,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: action.background,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
                             ),
                           ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: action.background,
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  );
-                },
-              ),
+                        );
+                      }).toList(),
+                    );
+                  },
+                ),
 
-              // Optional bottom padding so content isn't hidden under nav bar
-              const SizedBox(height: 32),
-            ],
+                // Optional bottom padding so content isn't hidden under nav bar
+                const SizedBox(height: 32),
+              ],
+            ),
           ),
         ),
       ),
