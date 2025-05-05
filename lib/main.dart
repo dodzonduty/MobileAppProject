@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/features/courses/courses.dart';
 import 'package:project/features/profile/Profile.dart';
 import 'features/auth/SplashScreen.dart';
 import 'features/auth/login_page.dart';
@@ -22,8 +23,7 @@ void main() async {
   );
   final notificationService = NotificationService();
   await notificationService.init();
-  runApp(const MyApp()
-  );
+  runApp(const MyApp());
   await DatabaseHelper().db;
 }
 
@@ -56,7 +56,7 @@ class _HomePageWithNavigationState extends State<HomePageWithNavigation> {
 
   final List<Widget> _pages = [
     home1.HomePage(),
-    const PlaceholderWidget(label: 'Library'),
+    CoursesPage(),
     // ← Here we pass the onHome callback into RootScreen:
     RootScreen(
       onHome: () => mainNavigationKey.currentState?.updateSelectedIndex(0),
@@ -95,7 +95,7 @@ class _MainNavigationState extends State<MainNavigation> {
 
   final List<Widget> _pages = [
     home1.HomePage(),
-    const PlaceholderWidget(label: 'Library'),
+    CoursesPage(),
     // ← And here too, for your primary navigation:
     RootScreen(
       onHome: () => mainNavigationKey.currentState?.updateSelectedIndex(0),
