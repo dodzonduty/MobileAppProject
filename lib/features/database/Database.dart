@@ -152,7 +152,7 @@ class DatabaseHelper {
       //group 1 (communication)
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time,class_no) VALUES (10661, 'CCE409', 'DR: Eslam Mansour', 'Lecture', 'Sunday', '12:30', '02:00', 'NP200')''',
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time, class_no) VALUES (10662, 'CCE409', 'TA: Basma Ashraf', 'Section', 'Sunday', '02:10', '03:40', 'NP104')''',
-      '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time,class_no) VALUES (10671, 'CCE410', 'DR: Reham Samir & DR: Shimaa Salama','Lecture', 'Wednesday', '12:30', '02:00','NP305)''',
+      '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time,class_no) VALUES (10671, 'CCE410', 'DR: Reham Samir & DR: Shimaa Salama','Lecture', 'Wednesday', '12:30', '02:00','NP305')''',
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time, class_no) VALUES (10673, 'CCE409', 'TA: Shaimaa Ezzat', 'Lab', 'Wednesday', '01:15', '03:40','SB5-02')''',
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time, class_no) VALUES (10629, 'CCE411', 'DR: Gehan Samy', 'Lecture', 'Sunday', '10:40', '12:10','NP101')''',
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time, class_no) VALUES (10630, 'CCE411', 'TA: Sara Lotfy', 'Lab', 'Wednesday', '10:40', '01:15','SB5-15')''',
@@ -203,5 +203,5 @@ class DatabaseHelper {
   Future<int> deleteData(String sql) async {
     Database? mydb = await db;
     return await mydb!.rawDelete(sql);
-  }
+    }
 }
