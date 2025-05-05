@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 
-class RegLogBtn extends StatelessWidget {
+class ActionBtn extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
   final Color buttonColor;
   final Color buttonTextColor;
   final String? iconPath;
+  final Icon? icon;
   final double? width;
-  const RegLogBtn({super.key, required this.buttonText, required this.onPressed, 
-  required this.buttonColor, required this.buttonTextColor, this.width, this.iconPath});
+
+  const ActionBtn({
+    super.key,
+    required this.buttonText,
+    required this.onPressed,
+    required this.buttonColor,
+    required this.buttonTextColor,
+    this.width,
+    this.iconPath,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +33,7 @@ class RegLogBtn extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: buttonColor,
           padding: EdgeInsets.symmetric(
-            vertical: dynamicVerticalPadding, 
+            vertical: dynamicVerticalPadding,
             horizontal: dynamicHorizontalPadding,
           ),
           shape: RoundedRectangleBorder(
@@ -33,13 +43,19 @@ class RegLogBtn extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (iconPath != null)
+            if (icon != null)
+              Icon(
+                icon!.icon,
+                color: buttonTextColor,
+                size: 18,
+              ),
+            if (icon == null && iconPath != null)
               Image.asset(
                 iconPath!,
                 height: 18,
                 width: 18,
               ),
-            if (iconPath != null) SizedBox(width: 8),
+            SizedBox(width: 8),
             Flexible(
               child: Text(
                 buttonText,
@@ -49,7 +65,7 @@ class RegLogBtn extends StatelessWidget {
                   fontSize: 16,
                   fontFamily: 'Inter',
                 ),
-                overflow: TextOverflow.ellipsis,  // to handle text overflow
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],

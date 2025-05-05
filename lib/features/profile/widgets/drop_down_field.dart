@@ -12,8 +12,8 @@ class DropdownFormWidget extends StatelessWidget {
   final double? width;
   final Color? dialogBackgroundColor;
   final TextStyle? hintStyle;
-  final Map<String, IconData>? itemIcons; // For Material icons (e.g., Year)
-  final Map<String, String>? itemImageIcons; // For image assets (e.g., Department)
+  final Map<String, IconData>? itemIcons; 
+  final Map<String, String>? itemImageIcons;
 
   const DropdownFormWidget({
     super.key,

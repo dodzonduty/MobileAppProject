@@ -1,14 +1,15 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project/features/courses/courses.dart';
 import 'package:project/features/profile/widgets/list_tile_elements.dart';
-import '../auth/widgets/registerlogin_btn.dart';
+import 'package:project/features/silver_app_bar_widget.dart';
+import '../action_btn.dart';
 import '../auth/widgets/registerlogin_field.dart';
 import '../auth/widgets/registerlogin_text.dart';
-import 'package:image_picker/image_picker.dart'; // Import the image picker
+import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-
-import 'widgets/drop_down_field.dart'; // To handle file operations
+import 'widgets/drop_down_field.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -68,7 +69,6 @@ class _ProfilePageState extends State<ProfilePage> {
       });
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,43 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // SliverAppBar that disappears on scroll
-            SliverAppBar(
-              pinned: false,
-              floating: true,
-              snap: true,
-              backgroundColor: Colors.white,
-              automaticallyImplyLeading: false,
-              expandedHeight: 80,
-              flexibleSpace: Padding(
-                padding: EdgeInsets.only(top: 16, left: 3, right: 20),
-                child: SafeArea(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: IconButton(
-                          icon: Icon(Icons.chevron_left, size: 30),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: RegisterLoginText(
-                          regTextContent: "Edit Profile",
-                          regTextStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            SilverAppBarWidget(appBarText: "Edit Profile",),
             SliverToBoxAdapter(
               child: SafeArea(
                 child: SingleChildScrollView(
@@ -295,11 +259,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ],
                               ),
                               SizedBox(height: 22),
-                              RegLogBtn(
+                              ActionBtn(
                                 buttonText: "Save Changes",
-                                onPressed: () {},
                                 buttonColor: Color(0xFF445B70),
                                 buttonTextColor: Colors.white,
+                                onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CoursesPage(), //wrong
+                                  ),
+                                );
+                              },
                               ),
                               SizedBox(height: 24),
                             ],
