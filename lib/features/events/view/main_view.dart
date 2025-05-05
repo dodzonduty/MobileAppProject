@@ -1,7 +1,7 @@
 // lib/features/events/view/main_view.dart
 
 import 'package:flutter/material.dart';
-import 'page_view_model.dart';
+import '../model/page_view_model.dart';
 
 class MainView extends StatelessWidget {
   /// Called when one of the 6 cards is tapped.
