@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'route_controller.dart';
-import 'route_model.dart';
 
 void showBusRoutesPopup(BuildContext context) {
   final routeController = RouteController();
