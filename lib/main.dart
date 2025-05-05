@@ -11,6 +11,8 @@ import 'BottomNavigetion.dart';
 // ignore: unused_import
 import 'features/transport/transport.dart';
 import 'features/notifications/Notifications.dart';
+import 'features/database/Database.dart';
+import 'features/transport/Transport.dart';
 
 final GlobalKey<_MainNavigationState> mainNavigationKey =
     GlobalKey<_MainNavigationState>();
@@ -22,7 +24,9 @@ void main() async {
   );
   final notificationService = NotificationService();
   await notificationService.init();
-  runApp(const MyApp());
+  runApp(const MyApp()
+  );
+  await DatabaseHelper().db;
 }
 
 class MyApp extends StatelessWidget {

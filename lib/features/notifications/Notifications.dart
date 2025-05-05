@@ -28,10 +28,4 @@ class NotificationService {
         InitializationSettings(android: initializationSettingsAndroid);
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
-
-
-
-Future<void> setupNotifications() async {
-  final notificationService = NotificationService();
-  await notificationService.init();
-}}
+}
