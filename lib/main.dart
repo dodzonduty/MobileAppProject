@@ -60,7 +60,7 @@ class _HomePageWithNavigationState extends State<HomePageWithNavigation> {
       onHome: () => mainNavigationKey.currentState?.updateSelectedIndex(0),
     ),
     TransportationPage(),
-    ProfilePage(),
+    EditProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -99,7 +99,7 @@ class _MainNavigationState extends State<MainNavigation> {
       onHome: () => mainNavigationKey.currentState?.updateSelectedIndex(0),
     ),
     TransportationPage(),
-    ProfilePage(),
+    EditProfilePage(),
   ];
 
   @override

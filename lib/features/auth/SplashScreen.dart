@@ -3,7 +3,7 @@ import 'package:project/features/auth/widgets/registerlogin_text.dart';
 import 'package:project/features/auth/widgets/registerlogin_txtbtn.dart';
 import 'login_page.dart';  // Import Login Page
 import 'register_page.dart';
-import 'widgets/registerlogin_btn.dart'; // Import Register Page
+import 'package:project/features/action_btn.dart'; // Import Register Page
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -60,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: screenHeight * 0.2),
-                RegLogBtn(
+                ActionBtn(
                   buttonText: "Login",
                   onPressed: () {
                                 Navigator.push(

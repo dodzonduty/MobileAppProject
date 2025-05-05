@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import '../silver_app_bar_widget.dart';
 import 'login_page.dart';
-import 'widgets/registerlogin_btn.dart';
+import '../action_btn.dart';
 import 'widgets/registerlogin_field.dart';
 import 'widgets/registerlogin_text.dart';
 import 'widgets/registerlogin_txtbtn.dart';
@@ -78,42 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              pinned: false,
-              floating: true,
-              snap: true,
-              backgroundColor: Colors.white,
-              automaticallyImplyLeading: false,
-              expandedHeight: 80,
-              flexibleSpace: Padding(
-                padding: EdgeInsets.only(top: 10, left: 3, right: 20),
-                child: SafeArea(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: IconButton(
-                          icon: Icon(Icons.chevron_left, size: 30),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: RegisterLoginText(
-                          regTextContent: "Register",
-                          regTextStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            SilverAppBarWidget(appBarText: "Register",),
             SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -239,7 +205,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               },
                             ),
                             SizedBox(height: 16),
-                            RegLogBtn(
+                            ActionBtn(
                               buttonText: "Sign Up",
                               onPressed: _handleEmailSignUp,
                               buttonColor: Color(0xFF445B70),
@@ -281,7 +247,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ],
                             ),
                             SizedBox(height: 22),
-                            RegLogBtn(
+                            ActionBtn(
                               buttonText: "Outlook",
                               onPressed: _handleMicrosoftSignIn,
                               iconPath: 'assets/images/Outlook_Logo.png',
@@ -299,7 +265,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ],
         ),
-      ),
-    );
-  }
+     ),
+);
+}
 }
