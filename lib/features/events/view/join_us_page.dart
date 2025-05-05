@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:project/features/auth/widgets/registerlogin_field.dart';
-import 'package:project/features/auth/widgets/registerlogin_btn.dart';
+import 'package:project/features/action_btn.dart';
 import 'package:project/features/auth/widgets/registerlogin_text.dart';
 
 class JoinUsPage extends StatefulWidget {
@@ -303,7 +303,7 @@ class _JoinUsPageState extends State<JoinUsPage> {
                       const SizedBox(height: 32),
 
                       // Submit button
-                      RegLogBtn(
+                      ActionBtn(
                         buttonText: 'Submit',
                         onPressed: _submit,
                         buttonColor: const Color(0xFF445B70),

@@ -19,10 +19,10 @@ class ListTileElements extends StatelessWidget {
         fontStyle: FontStyle.normal,
         fontWeight: FontWeight.bold,
         color: listTileColor,
-         fontFamily: "Inter")),
+        fontFamily: "Inter")),
       onTap: () {
         Navigator.pop(context, listTileSource);
         },
-      );
-  }
+);
+}
 }

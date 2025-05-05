@@ -9,9 +9,7 @@ class DatabaseHelper {
   static Database? _db;
 
   Future<Database?> get db async {
-    if (_db == null) {
-      _db = await initialDb();
-    }
+    _db ??= await initialDb();
     return _db;
   }
 

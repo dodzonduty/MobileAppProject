@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:project/features/auth/register_page.dart';
-import 'widgets/registerlogin_btn.dart';
+import '../silver_app_bar_widget.dart';
+import '../action_btn.dart';
 import 'widgets/registerlogin_field.dart';
 import 'widgets/registerlogin_text.dart';
 import 'widgets/registerlogin_txtbtn.dart';
@@ -90,186 +91,143 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              pinned: false,
-              floating: true,
-              snap: true,
-              backgroundColor: Colors.white,
-              automaticallyImplyLeading: false,
-              expandedHeight: 80,
-              flexibleSpace: Padding(
-                padding: EdgeInsets.only(
-                  top: 10,
-                  left: 3,
-                  right: 20,
-                ),
-                child: SafeArea(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: IconButton(
-                          icon: Icon(Icons.chevron_left, size: 30),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: RegisterLoginText(
-                          regTextContent: "Login",
-                          regTextStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            SilverAppBarWidget(appBarText: "Login"),
             SliverToBoxAdapter(
-              child: SafeArea(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.05,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.05,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 15),
+                    RegisterLoginText(
+                      regTextContent: 'Welcome',
+                      regTextStyle: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black,
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 15),
-                        RegisterLoginText(
-                          regTextContent: 'Welcome',
-                          regTextStyle: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.black,
+                    SizedBox(height: 17),
+                    RegisterLoginText(
+                      regTextContent: 'Sign In to your account',
+                      regTextStyle: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFF888888),
+                      ),
+                    ),
+                    SizedBox(height: 32),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          FormWidget(
+                            labelText: "E-mail Address",
+                            hintText: 'Enter your e-mail',
+                            keyPad: TextInputType.emailAddress,
+                            controller: _emailController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your email';
+                              }
+                              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                                  .hasMatch(value)) {
+                                return 'Please enter a valid email';
+                              }
+                              return null;
+                            },
                           ),
-                        ),
-                        SizedBox(height: 17),
-                        RegisterLoginText(
-                          regTextContent: 'Sign In to your account',
-                          regTextStyle: TextStyle(
-                            fontSize: 14,
-                            color: Color(0xFF888888),
+                          SizedBox(height: 22),
+                          FormWidget(
+                            labelText: "Password",
+                            hintText: 'Enter your password',
+                            keyPad: TextInputType.visiblePassword,
+                            controller: _passwordController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your password';
+                              }
+                              if (value.length < 6) {
+                                return 'Password must be at least 6 characters';
+                              }
+                              return null;
+                            },
                           ),
-                        ),
-                        SizedBox(height: 32),
-                        Form(
-                          key: _formKey,
-                          child: Column(
+                          SizedBox(height: 3),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              FormWidget(
-                                labelText: "E-mail Address",
-                                hintText: 'Enter your e-mail',
-                                keyPad: TextInputType.emailAddress,
-                                controller: _emailController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter your email';
-                                  }
-                                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
-                                      .hasMatch(value)) {
-                                    return 'Please enter a valid email';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              SizedBox(height: 22),
-                              FormWidget(
-                                labelText: "Password",
-                                hintText: 'Enter your password',
-                                keyPad: TextInputType.visiblePassword,
-                                controller: _passwordController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter your password';
-                                  }
-                                  if (value.length < 6) {
-                                    return 'Password must be at least 6 characters';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              SizedBox(height: 3),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  RegisterloginTxtbtn(
-                                    actionText: null,
-                                    textButtonColor: Color(0xFF834746),
-                                    onPressed: _handlePasswordReset,
-                                    buttonText: 'Forgot Password?',
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 16),
-                              RegLogBtn(
-                                buttonText: "Login",
-                                onPressed: _handleEmailSignIn,
-                                buttonColor: Color(0xFF445B70),
-                                buttonTextColor: Colors.white,
-                              ),
-                              SizedBox(height: 16),
                               RegisterloginTxtbtn(
-                                actionText: "Don't have an account?",
+                                actionText: null,
                                 textButtonColor: Color(0xFF834746),
-                                buttonText: "Sign Up",
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => RegisterPage(),
-                                    ),
-                                  );
-                                },
+                                onPressed: _handlePasswordReset,
+                                buttonText: 'Forgot Password?',
                               ),
-                              SizedBox(height: 16),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      height: 1.0,
-                                      color: Color(0xFFF2F2F2),
-                                      margin: EdgeInsets.only(right: 8.0),
-                                    ),
-                                  ),
-                                  RegisterLoginText(
-                                      regTextContent: "Or Sign In With"),
-                                  Expanded(
-                                    child: Container(
-                                      height: 1.0,
-                                      color: Color(0xFFF2F2F2),
-                                      margin: EdgeInsets.only(left: 8.0),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 22),
-                              RegLogBtn(
-                                buttonText: "Outlook",
-                                onPressed: _handleMicrosoftSignIn,
-                                iconPath: 'assets/images/Outlook_Logo.png',
-                                buttonColor: Color(0xFFF3F3F3),
-                                buttonTextColor: Color(0xFF4B4B4B),
-                              ),
-                              SizedBox(height: 24),
                             ],
                           ),
-                        ),
-                      ],
+                          SizedBox(height: 16),
+                          ActionBtn(
+                            buttonText: "Login",
+                            onPressed: _handleEmailSignIn,
+                            buttonColor: Color(0xFF445B70),
+                            buttonTextColor: Colors.white,
+                          ),
+                          SizedBox(height: 16),
+                          RegisterloginTxtbtn(
+                            actionText: "Don't have an account?",
+                            textButtonColor: Color(0xFF834746),
+                            buttonText: "Sign Up",
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RegisterPage(),
+                                ),
+                              );
+                            },
+                          ),
+                          SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  height: 1.0,
+                                  color: Color(0xFFF2F2F2),
+                                  margin: EdgeInsets.only(right: 8.0),
+                                ),
+                              ),
+                              RegisterLoginText(
+                                  regTextContent: "Or Sign In With"),
+                              Expanded(
+                                child: Container(
+                                  height: 1.0,
+                                  color: Color(0xFFF2F2F2),
+                                  margin: EdgeInsets.only(left: 8.0),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 22),
+                          ActionBtn(
+                            buttonText: "Outlook",
+                            onPressed: _handleMicrosoftSignIn,
+                            iconPath: 'assets/images/Outlook_Logo.png',
+                            buttonColor: Color(0xFFF3F3F3),
+                            buttonTextColor: Color(0xFF4B4B4B),
+                          ),
+                          SizedBox(height: 24),
+                        ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
+    ),
+);
+}
 }
