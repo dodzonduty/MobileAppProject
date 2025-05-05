@@ -42,7 +42,7 @@ class AboutScreen extends StatelessWidget {
                     height: 1.5, // Adjust line height for better readability
                   ),
                   textAlign:
-                      TextAlign.justify, // Justify text for proper alignment
+                      TextAlign.left, // Justify text for proper alignment
                   softWrap: true, // Ensure text wraps properly
                 ),
               ),

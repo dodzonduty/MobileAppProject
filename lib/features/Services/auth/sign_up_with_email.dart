@@ -10,13 +10,11 @@ class SignUpWithEmail {
     required String phoneNumber,
   }) async {
     try {
-      // Create user in Firebase Authentication
       final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email.trim(),
         password: password.trim(),
       );
 
-      // Store additional user data in Firestore
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userCredential.user!.uid)
@@ -26,6 +24,7 @@ class SignUpWithEmail {
         'phoneNumber': phoneNumber.trim(),
         'email': email.trim(),
         'createdAt': FieldValue.serverTimestamp(),
+        // 'UserProfilePicture': 'assets/images/default_profile.png', this has been commented to avoid conflicts with Arwa :"""" 
       });
 
       return userCredential;

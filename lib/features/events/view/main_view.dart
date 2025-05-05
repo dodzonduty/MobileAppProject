@@ -33,16 +33,20 @@ class MainView extends StatelessWidget {
     ),
     PageViewModel(
       pageNumber: 4,
-      title: 'OpenSenseMap',
+      title: 'MSP Shoubra',
       description:
-          'OpenSenseMap station for environmental sensor data, used in our HiveBox beekeeping project.',
+          '''
+Microsoft Student Partners - Shoubra (MSP Shoubra) is a dynamic student-run community at Shoubra Faculty of Engineering, Benha University. As part of the global Microsoft Learn Student Ambassadors program, MSP Shoubra empowers students by bridging the gap between academic knowledge and industry skills. The club organizes workshops, tech talks, and hands-on events focused on Microsoft technologies and broader fields like AI, cybersecurity, cloud computing, and software development. With a strong culture of collaboration, learning, and innovation, MSP Shoubra provides students with the opportunity to build real-world skills, connect with like-minded peers, and become future tech leaders.
+''',
       imageAsset: 'assets/images/4.png',
     ),
     PageViewModel(
       pageNumber: 5,
-      title: 'InnovEgypt',
+      title: 'ICPC Shoubra',
       description:
-          'The InnovEgypt Foundation supports student-led tech initiatives and startup ideas.',
+          '''
+ICPC Shoubra is the competitive programming hub of Shoubra Faculty of Engineering, where students come together to sharpen their problem-solving skills and dive deep into algorithms, data structures, and logic. As part of the global International Collegiate Programming Contest (ICPC) community, the Shoubra team trains rigorously to compete at local and regional levels, representing the faculty with pride. More than just contests, ICPC Shoubra is about teamwork, perseverance, and continuous learning. It's where aspiring programmers transform into world-class competitors—and where passion for code meets the thrill of competition.
+          ''',
       imageAsset: 'assets/images/5.png',
     ),
     PageViewModel(
@@ -58,8 +62,12 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Student Partners & Events'),
+        title: Text('Student Partners & Events'),
         backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 43),
