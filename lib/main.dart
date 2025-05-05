@@ -8,8 +8,9 @@ import 'firebase_options.dart';
 import 'package:project/features/home/view/home_page.dart' as home1;
 import 'features/events/view/root_screen.dart';
 import 'BottomNavigetion.dart';
-import 'features/transport/transport.dart';
 import 'features/notifications/Notifications.dart';
+import 'features/database/Database.dart';
+import 'features/transport/Transport.dart';
 
 final GlobalKey<_MainNavigationState> mainNavigationKey =
     GlobalKey<_MainNavigationState>();
@@ -21,7 +22,9 @@ void main() async {
   );
   final notificationService = NotificationService();
   await notificationService.init();
-  runApp(const MyApp());
+  runApp(const MyApp()
+  );
+  await DatabaseHelper().db;
 }
 
 class MyApp extends StatelessWidget {
@@ -58,7 +61,7 @@ class _HomePageWithNavigationState extends State<HomePageWithNavigation> {
     RootScreen(
       onHome: () => mainNavigationKey.currentState?.updateSelectedIndex(0),
     ),
-    const PlaceholderWidget(label: 'Transit'),
+    TransportationPage(),
     ProfilePage(),
   ];
 
@@ -97,7 +100,7 @@ class _MainNavigationState extends State<MainNavigation> {
     RootScreen(
       onHome: () => mainNavigationKey.currentState?.updateSelectedIndex(0),
     ),
-    const PlaceholderWidget(label: 'Transit'),
+    TransportationPage(),
     ProfilePage(),
   ];
 
