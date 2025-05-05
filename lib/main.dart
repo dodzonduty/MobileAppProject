@@ -58,7 +58,7 @@ class _HomePageWithNavigationState extends State<HomePageWithNavigation> {
     RootScreen(
       onHome: () => mainNavigationKey.currentState?.updateSelectedIndex(0),
     ),
-    const PlaceholderWidget(label: 'Transit'),
+    TransportationPage(),
     ProfilePage(),
   ];
 
@@ -97,7 +97,7 @@ class _MainNavigationState extends State<MainNavigation> {
     RootScreen(
       onHome: () => mainNavigationKey.currentState?.updateSelectedIndex(0),
     ),
-    const PlaceholderWidget(label: 'Transit'),
+    TransportationPage(),
     ProfilePage(),
   ];
 
