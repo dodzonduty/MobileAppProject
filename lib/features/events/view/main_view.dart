@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import '../model/page_view_model.dart';
 
-class MainView extends StatelessWidget {
+class MainView extends StatefulWidget {
   /// Called when one of the 6 cards is tapped.
   final void Function(PageViewModel viewModel) onItemTapped;
 
@@ -20,6 +20,11 @@ class MainView extends StatelessWidget {
   static const double horizontalSpacing = 27;
   static const double verticalSpacing = 28;
 
+  @override
+  State<MainView> createState() => _MainViewState();
+}
+
+class _MainViewState extends State<MainView> {
   final List<PageViewModel> _pages = const [
     PageViewModel(
       pageNumber: 1,
@@ -44,23 +49,23 @@ class MainView extends StatelessWidget {
     ),
     PageViewModel(
       pageNumber: 4,
-      title: 'OpenSenseMap',
+      title: 'MSP',
       description:
-          'OpenSenseMap station for environmental sensor data, used in our HiveBox beekeeping project.',
+          'is a student-led initiative that empowers students to become leaders in technology and innovation.',
       imageAsset: 'assets/images/4.png',
     ),
     PageViewModel(
       pageNumber: 5,
-      title: 'InnovEgypt',
+      title: 'ICPC',
       description:
-          'The InnovEgypt Foundation supports student-led tech initiatives and startup ideas.',
+          'The International Collegiate Programming Contest (ICPC) is a prestigious programming competition for university students and is a great way to test your programming skills and our univsity make a compition to test your programming skills.',
       imageAsset: 'assets/images/5.png',
     ),
     PageViewModel(
       pageNumber: 6,
       title: 'SRT',
       description:
-          'SRT provides rapid transit solutions and student discounts for our campus community.',
+          'SRT is committed to enhancing the skills and knowledge of students in the field of automation engineering.',
       imageAsset: 'assets/images/6.png',
     ),
   ];
@@ -70,7 +75,7 @@ class MainView extends StatelessWidget {
     return WillPopScope(
       // Handle Android back button
       onWillPop: () async {
-        onBack();
+        widget.onBack();
         return false; // prevent default pop
       },
       child: Scaffold(
@@ -84,22 +89,24 @@ class MainView extends StatelessWidget {
           backgroundColor: Colors.white,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: onBack, // handle app-bar back
+            onPressed: widget.onBack, // handle app-bar back
           ),
         ),
         body: Container(
+          height: double.infinity,
           color: Colors.white,
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 43),
             child: LayoutBuilder(
               builder: (ctx, constraints) {
-                final gapTotal = horizontalSpacing * (cardsPerRow - 1);
+                final gapTotal =
+                    MainView.horizontalSpacing * (MainView.cardsPerRow - 1);
                 final cardSize =
-                    (constraints.maxWidth - gapTotal) / cardsPerRow;
+                    (constraints.maxWidth - gapTotal) / MainView.cardsPerRow;
 
                 return Wrap(
-                  spacing: horizontalSpacing,
-                  runSpacing: verticalSpacing,
+                  spacing: MainView.horizontalSpacing,
+                  runSpacing: MainView.verticalSpacing,
                   children: _pages.map((p) {
                     final idx = _pages.indexOf(p);
                     final bg = idx == 3 ? Colors.black : Colors.white;
@@ -107,7 +114,7 @@ class MainView extends StatelessWidget {
                       width: cardSize,
                       height: 200,
                       child: GestureDetector(
-                        onTap: () => onItemTapped(p),
+                        onTap: () => widget.onItemTapped(p),
                         child: Container(
                           decoration: BoxDecoration(
                             color: bg,

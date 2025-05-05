@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/features/events/view/main_view.dart';
 import 'package:project/features/profile/Profile.dart';
 import 'features/auth/SplashScreen.dart';
 import 'features/auth/login_page.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
-        '/hom1': (context) => const HomePageWithNavigation(),
+        '/hom1': (context) => HomePageWithNavigation(),
         '/home': (context) => MainNavigation(),
       },
     );
@@ -58,7 +59,7 @@ class _HomePageWithNavigationState extends State<HomePageWithNavigation> {
     RootScreen(
       onHome: () => mainNavigationKey.currentState?.updateSelectedIndex(0),
     ),
-    const PlaceholderWidget(label: 'Transit'),
+    TransportationPage(),
     ProfilePage(),
   ];
 
@@ -97,7 +98,7 @@ class _MainNavigationState extends State<MainNavigation> {
     RootScreen(
       onHome: () => mainNavigationKey.currentState?.updateSelectedIndex(0),
     ),
-    const PlaceholderWidget(label: 'Transit'),
+    TransportationPage(),
     ProfilePage(),
   ];
 

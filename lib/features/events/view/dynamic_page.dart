@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'event_page.dart';
 import 'join_us_page.dart';
 
-class DynamicPage extends StatelessWidget {
+class DynamicPage extends StatefulWidget {
   final String imageAsset;
   final String title;
   final String description;
@@ -14,6 +14,11 @@ class DynamicPage extends StatelessWidget {
     required this.description,
   });
 
+  @override
+  State<DynamicPage> createState() => _DynamicPageState();
+}
+
+class _DynamicPageState extends State<DynamicPage> {
   @override
   Widget build(BuildContext context) {
     // Define your three action items
@@ -36,15 +41,17 @@ class DynamicPage extends StatelessWidget {
         foregroundColor: Colors.black87,
         elevation: 0,
         leading: BackButton(onPressed: () {
-          Navigator.pop(context);
+          Navigator.pushNamed(context, '/home',
+              arguments: {'selectedIndex': 1});
         }),
         title: Text(
-          title,
+          widget.title,
           style: const TextStyle(color: Colors.black87, fontSize: 20),
         ),
       ),
       body: SafeArea(
         child: Container(
+          height: double.infinity,
           color: Colors.white,
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
@@ -56,7 +63,8 @@ class DynamicPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => EventPage(imageAsset: imageAsset),
+                        builder: (context) =>
+                            EventPage(imageAsset: widget.imageAsset),
                       ),
                     );
                   },
@@ -66,11 +74,11 @@ class DynamicPage extends StatelessWidget {
                     ),
                     elevation: 4,
                     clipBehavior: Clip.hardEdge,
-                    color: imageAsset.contains('4.png')
+                    color: widget.imageAsset.contains('4.png')
                         ? Colors.black
                         : Colors.white,
                     child: Image.asset(
-                      imageAsset,
+                      widget.imageAsset,
                       width: 350,
                       height: 180,
                       fit: BoxFit.contain,
@@ -82,7 +90,7 @@ class DynamicPage extends StatelessWidget {
 
                 // 2) Description Text
                 Text(
-                  description,
+                  widget.description,
                   style: const TextStyle(fontSize: 16, height: 1.5),
                 ),
 
@@ -105,8 +113,8 @@ class DynamicPage extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        EventPage(imageAsset: imageAsset),
+                                    builder: (context) => EventPage(
+                                        imageAsset: widget.imageAsset),
                                   ),
                                 );
                               } else if (action.label == 'Join Us') {

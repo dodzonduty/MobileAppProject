@@ -81,7 +81,10 @@ class _ProfilePageState extends State<ProfilePage> {
       if (email != null) {
         // First, try to fetch data from Firestore
         try {
-          final doc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+          final doc = await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .get();
           if (doc.exists) {
             final data = doc.data();
             final firstName = data?['firstName'] as String?;
@@ -114,14 +117,17 @@ class _ProfilePageState extends State<ProfilePage> {
 
         // If Firestore data is incomplete or missing, check provider
         final provider = user.providerData
-            .firstWhere((data) => data.providerId != 'firebase', orElse: () => user.providerData.first)
+            .firstWhere((data) => data.providerId != 'firebase',
+                orElse: () => user.providerData.first)
             .providerId;
 
         if (provider == 'microsoft.com') {
           // Microsoft user: extract first name from email
           final regex = RegExp(r'([a-zA-Z]+)\d+@feng\.bu\.edu\.eg');
           final match = regex.firstMatch(email);
-          final extractedName = StringExtension(match?.group(1))?.capitalize() ?? email.split('@').first;
+          final extractedName =
+              StringExtension(match?.group(1))?.capitalize() ??
+                  email.split('@').first;
           setState(() {
             displayName = extractedName;
             showNote = true; // Show note if no Firestore data
@@ -169,7 +175,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         alignment: Alignment.centerLeft,
                         child: IconButton(
                           icon: Icon(Icons.chevron_left, size: 30),
-                          onPressed: () => Navigator.pop(context),
+                          onPressed: () => Navigator.pushNamed(context, '/home',
+                              arguments: {'selectedIndex': 0}),
                         ),
                       ),
                       Align(
@@ -190,7 +197,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Column(
                   children: [
                     GestureDetector(
@@ -199,12 +207,14 @@ class _ProfilePageState extends State<ProfilePage> {
                         radius: 50,
                         backgroundImage: _image != null
                             ? FileImage(_image!)
-                            : AssetImage('assets/images/default_profile.png') as ImageProvider,
+                            : AssetImage('assets/images/default_profile.png')
+                                as ImageProvider,
                       ),
                     ),
                     SizedBox(height: 20),
                     RegisterLoginText(
-                      regTextContent: displayName, // Updated to show computed name
+                      regTextContent:
+                          displayName, // Updated to show computed name
                       regTextStyle: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w800,
@@ -279,7 +289,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your email';
                               }
-                              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                                  .hasMatch(value)) {
                                 return 'Please enter a valid email';
                               }
                               return null;
@@ -295,7 +306,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your phone number';
                               }
-                              if (!RegExp(r'^(\+20|0)?1[0-2,5]\d{8}$').hasMatch(value)) {
+                              if (!RegExp(r'^(\+20|0)?1[0-2,5]\d{8}$')
+                                  .hasMatch(value)) {
                                 return "Phone must have 9 digits after 1 (e.g., 1XXXXXXXX)";
                               }
                               return null;
@@ -304,12 +316,13 @@ class _ProfilePageState extends State<ProfilePage> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 CountryFlag.fromCountryCode('EG',
-                                  height: 20, width: 28,
-                                  shape: const RoundedRectangle(6)),
+                                    height: 20,
+                                    width: 28,
+                                    shape: const RoundedRectangle(6)),
                                 SizedBox(width: 6),
-                                Text('+20', style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black)),
+                                Text('+20',
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.black)),
                               ],
                             ),
                           ),
@@ -321,7 +334,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 // TODO: Implement save logic to Firestore for RawRaw
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text('Changes saved!')),
-                                );
+                                ); // Close the profile page
                               }
                             },
                             buttonColor: Color(0xFF445B70),
