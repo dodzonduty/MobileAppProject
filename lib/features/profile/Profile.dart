@@ -6,11 +6,13 @@ import '../auth/widgets/registerlogin_btn.dart';
 import '../auth/widgets/registerlogin_field.dart';
 import '../auth/widgets/registerlogin_text.dart';
 import 'package:image_picker/image_picker.dart'; // Import the image picker
-import 'dart:io'; // To handle file operations
-import 'package:flutter/services.dart'; // For platform-specific operations
+import 'dart:io';
+
+import 'widgets/drop_down_field.dart'; // To handle file operations
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -23,6 +25,11 @@ class _ProfilePageState extends State<ProfilePage> {
   final _phoneNumberController = TextEditingController();
   File? _image; // To store the selected image
   UserCredential? userCredential; // To store the user credential
+
+  String? _selectedYear;
+  String? _selectedDep;
+  final TextEditingController _gpaController = TextEditingController();
+
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final pickedSource = await showModalBottomSheet<ImageSource>(
@@ -62,184 +69,251 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    backgroundColor: Colors.white,
-    body: SafeArea(
-      child: CustomScrollView(
-        slivers: [
-          // SliverAppBar that disappears on scroll
-          SliverAppBar(
-            pinned: false,
-            floating: true,
-            snap: true,
-            backgroundColor: Colors.white,
-            automaticallyImplyLeading: false,
-            expandedHeight: 80,
-            flexibleSpace: Padding(
-              padding: EdgeInsets.only(top: 16, left: 3, right: 20),
-              child: SafeArea(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.chevron_left,
-                          size: 30),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: RegisterLoginText(
-                        regTextContent: "Edit Profile",
-                        regTextStyle: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.black,
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            // SliverAppBar that disappears on scroll
+            SliverAppBar(
+              pinned: false,
+              floating: true,
+              snap: true,
+              backgroundColor: Colors.white,
+              automaticallyImplyLeading: false,
+              expandedHeight: 80,
+              flexibleSpace: Padding(
+                padding: EdgeInsets.only(top: 16, left: 3, right: 20),
+                child: SafeArea(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          icon: Icon(Icons.chevron_left, size: 30),
+                          onPressed: () => Navigator.pop(context),
                         ),
                       ),
-                    ),
-                  ],
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: RegisterLoginText(
+                          regTextContent: "Edit Profile",
+                          regTextStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: _pickImage,
-                    child: CircleAvatar(
-                      radius: 50,
-                      backgroundImage: _image != null
-                          ? FileImage(_image!)
-                          : AssetImage('assets/images/default_profile.png') as ImageProvider,
+            SliverToBoxAdapter(
+              child: SafeArea(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.05,
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  RegisterLoginText(
-                    regTextContent: userCredential.toString(),
-                    regTextStyle: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.black,
-                    ),
-                  ),
-                  RegisterLoginText(
-                    regTextContent: 'Student',
-                    regTextStyle: TextStyle(
-                      fontSize: 14,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF888888),
-                    ),
-                  ),
-                  SizedBox(height: 32),
-                  Form(
-                    key: _formKey,
                     child: Column(
-                    children: [
-                      Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Flexible(
-                        child: FormWidget(
-                            labelText: "First Name",
-                            hintText: 'Enter your first name',
-                            keyPad: TextInputType.name,
-                            controller: _firstNameController,
-                            validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your first name';
-                                }
-                                return null;
-                                    },
-                                  ),
-                                ),
-                                SizedBox(width: 9),
-                                Flexible(
-                                  child: FormWidget(
-                                    labelText: "Last Name",
-                                    hintText: 'Enter your last name',
-                                    keyPad: TextInputType.name,
-                                    controller: _lastNameController,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter your last name';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 22),
-                            FormWidget(
-                              labelText: "E-mail Address",
-                              hintText: 'Enter your e-mail',
-                              keyPad: TextInputType.emailAddress,
-                              controller: _emailController,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your email';
-                                }
-                                if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                                  return 'Please enter a valid email';
-                                }
-                                return null;
-                              },
-                            ),
-                        SizedBox(height: 22),
-                        FormWidget(
-                              labelText: "Phone Number",
-                              hintText: 'Phone number as 1XXXXXXXX',
-                              keyPad: TextInputType.phone,
-                              controller: _phoneNumberController,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your phone number';
-                                }
-                                if (!RegExp(r'^(\+20|0)?1[0-2,5]\d{8}$').hasMatch(value)) {
-                                  return "Phone must have 9 digits after 1 (e.g., 1XXXXXXXX)";
-                                }
-                                return null;
-                              },
-                              prefixWidget: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  CountryFlag.fromCountryCode('EG',
-                                  height: 20, width: 28,
-                                  shape:  const RoundedRectangle(6)),
-                                  SizedBox(width: 6),
-                                  Text('+20', style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black)),
-                                  ],
-                                  ),
-                            ),
-                        SizedBox(height: 22),
-                        RegLogBtn(
-                          buttonText: "Save Changes",
-                          onPressed: () {},
-                          buttonColor: Color(0xFF445B70),
-                          buttonTextColor: Colors.white,
+                        GestureDetector(
+                          onTap: _pickImage,
+                          child: CircleAvatar(
+                            radius: 50,
+                            backgroundImage: _image != null
+                                ? FileImage(_image!)
+                                : AssetImage(
+                                        'assets/images/default_profile.png')
+                                    as ImageProvider,
+                          ),
                         ),
-                        SizedBox(height: 24),
+                        SizedBox(height: 20),
+                        RegisterLoginText(
+                          regTextContent: userCredential.toString(),
+                          regTextStyle: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.black,
+                          ),
+                        ),
+                        RegisterLoginText(
+                          regTextContent: 'Student',
+                          regTextStyle: TextStyle(
+                            fontSize: 14,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF888888),
+                          ),
+                        ),
+                        SizedBox(height: 32),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: FormWidget(
+                                      labelText: "First Name",
+                                      hintText: 'Enter your first name',
+                                      keyPad: TextInputType.name,
+                                      controller: _firstNameController,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter your first name';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(width: 9),
+                                  Flexible(
+                                    child: FormWidget(
+                                      labelText: "Last Name",
+                                      hintText: 'Enter your last name',
+                                      keyPad: TextInputType.name,
+                                      controller: _lastNameController,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter your last name';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 22),
+                              FormWidget(
+                                labelText: "E-mail Address",
+                                hintText: 'Enter your e-mail',
+                                keyPad: TextInputType.emailAddress,
+                                controller: _emailController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your email';
+                                  }
+                                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                                      .hasMatch(value)) {
+                                    return 'Please enter a valid email';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              SizedBox(height: 22),
+                              FormWidget(
+                                labelText: "Phone Number",
+                                hintText: 'Phone number as 1XXXXXXXX',
+                                keyPad: TextInputType.phone,
+                                controller: _phoneNumberController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your phone number';
+                                  }
+                                  if (!RegExp(r'^(\+20|0)?1[0-2,5]\d{8}$')
+                                      .hasMatch(value)) {
+                                    return "Phone must have 9 digits after 1 (e.g., 1XXXXXXXX)";
+                                  }
+                                  return null;
+                                },
+                                prefixWidget: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CountryFlag.fromCountryCode('EG',
+                                        height: 20, width: 28),
+                                    SizedBox(width: 6),
+                                    Text('+20',
+                                        style: TextStyle(
+                                            fontSize: 14, color: Colors.black)),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 22),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: DropdownFormWidget(
+                                      labelText: "Year",
+                                      hintText: "Select Year",
+                                      value: _selectedYear,
+                                      items: [
+                                        'Level Zero',
+                                        'Level One',
+                                        'Level Two',
+                                        'Level Three',
+                                        'Level Four'
+                                      ],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedYear = value;
+                                        });
+                                      },
+                                      itemColor: Color(0xFF445B70),
+                                      itemIcons: {
+                                        'Level Zero': Icons.filter_none,
+                                        'Level One': Icons.looks_one,
+                                        'Level Two': Icons.looks_two,
+                                        'Level Three': Icons.looks_3,
+                                        'Level Four': Icons.looks_4,
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: DropdownFormWidget(
+                                        labelText: "Department",
+                                        hintText: "Select Department",
+                                        value: _selectedDep,
+                                        items: [
+                                          'CCEP',
+                                          'EEC',
+                                          'ESEE',
+                                          'ISE',
+                                          'CSM'
+                                        ],
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _selectedDep = value;
+                                          });
+                                        },
+                                        itemColor: Color(0xFF834746),
+                                        itemImageIcons: {
+                                          'CCEP': 'assets/images/ccep.png',
+                                          'EEC': 'assets/images/eec.png',
+                                          'ESEE': 'assets/images/esee.png',
+                                          'ISE': 'assets/images/ise.png',
+                                          'CSM': 'assets/images/csm.png',
+                                        }),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 22),
+                              RegLogBtn(
+                                buttonText: "Save Changes",
+                                onPressed: () {},
+                                buttonColor: Color(0xFF445B70),
+                                buttonTextColor: Colors.white,
+                              ),
+                              SizedBox(height: 24),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 }

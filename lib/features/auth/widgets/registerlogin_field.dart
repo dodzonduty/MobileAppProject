@@ -47,15 +47,16 @@ class _FormWidgetState extends State<FormWidget> {
           : null,
           decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: const TextStyle(
+            hintStyle: TextStyle(
               fontSize: 12.0,
               fontStyle: FontStyle.normal,
               fontWeight: FontWeight.normal,
               color: Color(0xFFC4C4C4),   
+              fontFamily: "Inter"
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(32),
-              borderSide: const BorderSide(
+              borderSide: BorderSide(
                 color: Color(0xFFC4C4C4),
                 width: 1.0,
               ),

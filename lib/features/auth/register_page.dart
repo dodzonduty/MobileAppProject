@@ -255,7 +255,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => LoginPage(),
+                                    builder: (context) => ProfilePage(),
                                   ),
                                 );
                               },
