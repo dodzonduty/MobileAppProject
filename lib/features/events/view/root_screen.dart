@@ -1,7 +1,6 @@
 // lib/features/events/view/root_screen.dart
 
 import 'package:flutter/material.dart';
-import 'package:project/features/home/view/home_page.dart';
 import 'main_view.dart';
 import 'dynamic_page.dart';
 

@@ -1,30 +1,68 @@
 import 'package:flutter/material.dart';
+import '../../../BottomNavigetion.dart';
 
-class AboutScreen extends StatelessWidget {
+class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
+
+  @override
+  State<AboutScreen> createState() => _AboutScreenState();
+}
+
+class _AboutScreenState extends State<AboutScreen> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    if (index == _selectedIndex) {
+      // Already on the selected page, do nothing or maybe pop to root
+      return;
+    }
+    setState(() {
+      _selectedIndex = index;
+    });
+    switch (index) {
+      case 0:
+      case 1:
+      case 3:
+      case 4:
+        Navigator.pushReplacementNamed(
+          context,
+          '/home',
+          arguments: {'selectedIndex': index},
+        );
+        break;
+      case 2:
+        Navigator.pushReplacementNamed(context, '/home',
+            arguments: {'selectedIndex': index});
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('About')),
+      appBar: AppBar(
+        title: const Text('About'),
+        backgroundColor: Colors.white,
+      ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        // Enable scrolling
         child: Center(
           child: Column(
             children: <Widget>[
               Container(
+                color: Colors.white,
                 padding: const EdgeInsets.all(25.0),
                 width: double.infinity,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15.0), // Rounded corners
+                  borderRadius: BorderRadius.circular(15.0),
                   child: Image.asset(
-                    'assets/images/Feng_big.png', // Local image
-                    fit: BoxFit.cover, // Cover the entire container
-                    height: 200, // Fixed height for the image
+                    'assets/images/Feng_big.png',
+                    fit: BoxFit.cover,
+                    height: 200,
                   ),
                 ),
-              ), // Using the local image
-              const SizedBox(height: 20), // Spacing
+              ),
+              const SizedBox(height: 20),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16.0),
@@ -37,19 +75,21 @@ class AboutScreen extends StatelessWidget {
                   In April 1976, Presidential Decree No. 367 of 1976 was issued, transferring the Higher Technical Institute in Shubra to Ain Shams University under the name of the Faculty of Engineering, Shubra. On October 30, 1976, Presidential Decree No. 1069 of 1976 was issued, transferring the Faculty of Engineering, Shubra, to Zagazig University / Benha Branch. Finally, Presidential Decree No. 84 of 2005 was issued to establish Benha University, with the Faculty of Engineering, Shubra, as one of its faculties.
                   """,
                   style: TextStyle(
-                    fontSize: 16, // Slightly smaller font size for better fit
+                    fontSize: 16,
                     color: Colors.black,
-                    height: 1.5, // Adjust line height for better readability
+                    height: 1.5,
                   ),
-                  textAlign:
-                      TextAlign.justify, // Justify text for proper alignment
-                  softWrap: true, // Ensure text wraps properly
+                  textAlign: TextAlign.justify,
+                  softWrap: true,
                 ),
               ),
-              // Add more components as per the Figma design
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBarWidget(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
       ),
     );
   }

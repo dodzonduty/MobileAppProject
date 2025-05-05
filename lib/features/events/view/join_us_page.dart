@@ -77,35 +77,43 @@ class _JoinUsPageState extends State<JoinUsPage> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // Top bar
+            // SliverAppBar that disappears on scroll
             SliverAppBar(
+              pinned: false,
               floating: true,
               snap: true,
               backgroundColor: Colors.white,
               automaticallyImplyLeading: false,
               expandedHeight: 80,
               flexibleSpace: Padding(
-                padding: const EdgeInsets.only(top: 10, left: 3, right: 20),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.chevron_left, size: 30),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                    const RegisterLoginText(
-                      regTextContent: 'Join US',
-                      regTextStyle: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.black,
-                        fontFamily: 'Inter',
+                padding: EdgeInsets.only(top: 16, left: 3, right: 20),
+                child: SafeArea(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          icon: Icon(Icons.chevron_left, size: 30),
+                          onPressed: () => Navigator.pop(context),
+                        ),
                       ),
-                    ),
-                  ],
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: RegisterLoginText(
+                          regTextContent: "Edit Profile",
+                          regTextStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-
             // Form
             SliverToBoxAdapter(
               child: Padding(

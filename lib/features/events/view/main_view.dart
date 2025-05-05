@@ -75,56 +75,65 @@ class MainView extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Student Partners & Events'),
+          title: const Text('Student Partners & Events',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF445B70),
+              )),
           backgroundColor: Colors.white,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: onBack, // handle app-bar back
           ),
         ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 43),
-          child: LayoutBuilder(
-            builder: (ctx, constraints) {
-              final gapTotal = horizontalSpacing * (cardsPerRow - 1);
-              final cardSize = (constraints.maxWidth - gapTotal) / cardsPerRow;
+        body: Container(
+          color: Colors.white,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 43),
+            child: LayoutBuilder(
+              builder: (ctx, constraints) {
+                final gapTotal = horizontalSpacing * (cardsPerRow - 1);
+                final cardSize =
+                    (constraints.maxWidth - gapTotal) / cardsPerRow;
 
-              return Wrap(
-                spacing: horizontalSpacing,
-                runSpacing: verticalSpacing,
-                children: _pages.map((p) {
-                  final idx = _pages.indexOf(p);
-                  final bg = idx == 3 ? Colors.black : Colors.white;
-                  return SizedBox(
-                    width: cardSize,
-                    height: 200,
-                    child: GestureDetector(
-                      onTap: () => onItemTapped(p),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: bg,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.grey.shade300),
-                          boxShadow: const [
-                            BoxShadow(color: Colors.black12, blurRadius: 6),
-                          ],
-                        ),
-                        clipBehavior: Clip.hardEdge,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Image.asset(
-                            p.imageAsset,
-                            fit: BoxFit.contain,
-                            errorBuilder: (_, __, ___) =>
-                                const Icon(Icons.broken_image, size: 100),
+                return Wrap(
+                  spacing: horizontalSpacing,
+                  runSpacing: verticalSpacing,
+                  children: _pages.map((p) {
+                    final idx = _pages.indexOf(p);
+                    final bg = idx == 3 ? Colors.black : Colors.white;
+                    return SizedBox(
+                      width: cardSize,
+                      height: 200,
+                      child: GestureDetector(
+                        onTap: () => onItemTapped(p),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: bg,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: Colors.grey.shade300),
+                            boxShadow: const [
+                              BoxShadow(color: Colors.black12, blurRadius: 6),
+                            ],
+                          ),
+                          clipBehavior: Clip.hardEdge,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Image.asset(
+                              p.imageAsset,
+                              fit: BoxFit.contain,
+                              errorBuilder: (_, __, ___) =>
+                                  const Icon(Icons.broken_image, size: 100),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                }).toList(),
-              );
-            },
+                    );
+                  }).toList(),
+                );
+              },
+            ),
           ),
         ),
       ),

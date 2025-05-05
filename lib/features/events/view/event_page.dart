@@ -125,101 +125,106 @@ class EventPage extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // … (your user icon + image + About header) …
+        child: Container(
+          height: double.infinity,
+          color: Colors.white,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // … (your user icon + image + About header) …
 
-              // description
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(12),
+                // description
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(desc,
+                      style: const TextStyle(fontSize: 16, height: 1.5)),
                 ),
-                child: Text(desc,
-                    style: const TextStyle(fontSize: 16, height: 1.5)),
-              ),
 
-              const SizedBox(height: 24),
+                const SizedBox(height: 24),
 
-              // action buttons
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        final eventDate = _parseEventDate(desc);
-                        if (eventDate != null) {
-                          final event = Event(
-                            title: 'Event at Benha University',
-                            description: desc,
-                            location:
-                                'Building 2, 2nd Floor, SB1-03, Faculty of Engineering, Benha University – Shoubra campus',
-                            startDate: eventDate,
-                            endDate: eventDate.add(const Duration(hours: 1)),
-                          );
-                          Add2Calendar.addEvent2Cal(event);
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Could not parse event date')),
-                          );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF445B70),
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(32)),
+                // action buttons
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          final eventDate = _parseEventDate(desc);
+                          if (eventDate != null) {
+                            final event = Event(
+                              title: 'Event at Benha University',
+                              description: desc,
+                              location:
+                                  'Building 2, 2nd Floor, SB1-03, Faculty of Engineering, Benha University – Shoubra campus',
+                              startDate: eventDate,
+                              endDate: eventDate.add(const Duration(hours: 1)),
+                            );
+                            Add2Calendar.addEvent2Cal(event);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Could not parse event date')),
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF445B70),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32)),
+                        ),
+                        child: const Text('Add to Calendar',
+                            style: TextStyle(color: Colors.white)),
                       ),
-                      child: const Text('Add to Calendar',
-                          style: TextStyle(color: Colors.white)),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Share.share(desc, subject: 'Join this event!');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF445B70),
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(32)),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Share.share(desc, subject: 'Join this event!');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF445B70),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32)),
+                        ),
+                        child: const Text('Invite Friends',
+                            style: TextStyle(color: Colors.white)),
                       ),
-                      child: const Text('Invite Friends',
-                          style: TextStyle(color: Colors.white)),
                     ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 16),
-
-              // join button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  //onPressed: () {Navigation.of(context).pushNamed('/join');},
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => JoinUsPage()),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF445B70),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32)),
-                  ),
-                  child: const Text('Join the Event',
-                      style: TextStyle(color: Colors.white)),
+                  ],
                 ),
-              ),
-            ],
+
+                Container(color: Colors.white, child: SizedBox(height: 16)),
+
+                // join button
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    //onPressed: () {Navigation.of(context).pushNamed('/join');},
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => JoinUsPage()),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF445B70),
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32)),
+                    ),
+                    child: const Text('Join the Event',
+                        style: TextStyle(color: Colors.white)),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

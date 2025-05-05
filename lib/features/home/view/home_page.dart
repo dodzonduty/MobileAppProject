@@ -350,14 +350,14 @@ class SearchBox extends StatefulWidget {
 
 class _SearchBoxState extends State<SearchBox> {
   final List<String> _values = [
-    'Apple',
-    'Banana',
-    'Cherry',
-    'Date',
-    'Elderberry',
-    'Fig',
-    'Grape',
-    'Honeydew',
+    'IEEE',
+    'MSP',
+    'ICPC',
+    'Shoubra Engineering Students Union',
+    'GDG',
+    'SRT',
+    'Table ',
+    'Profile',
   ];
 
   List<String> _filteredValues = [];
