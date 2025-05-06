@@ -13,9 +13,6 @@ import 'features/notifications/Notifications.dart';
 import 'features/database/Database.dart';
 import 'features/transport/Transport.dart';
 
-final GlobalKey<_MainNavigationState> mainNavigationKey =
-    GlobalKey<_MainNavigationState>();
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -37,54 +34,16 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
-        '/hom1': (context) => const HomePageWithNavigation(),
         '/home': (context) => MainNavigation(),
+        '/home2': (context) => home1.HomePage(),
       },
-    );
-  }
-}
-
-class HomePageWithNavigation extends StatefulWidget {
-  const HomePageWithNavigation({super.key});
-
-  @override
-  State<HomePageWithNavigation> createState() => _HomePageWithNavigationState();
-}
-
-class _HomePageWithNavigationState extends State<HomePageWithNavigation> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _pages = [
-    home1.HomePage(),
-    CoursesPage(),
-    // ← Here we pass the onHome callback into RootScreen:
-    RootScreen(
-      onHome: () => mainNavigationKey.currentState?.updateSelectedIndex(0),
-    ),
-    TransportationPage(),
-    EditProfilePage(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() => _selectedIndex = index);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(index: _selectedIndex, children: _pages),
-      bottomNavigationBar: BottomNavigationBarWidget(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
-      ),
     );
   }
 }
 
 class MainNavigation extends StatefulWidget {
   final int initialSelectedIndex;
-  MainNavigation({this.initialSelectedIndex = 0})
-      : super(key: mainNavigationKey);
+  MainNavigation({this.initialSelectedIndex = 0}) : super();
 
   @override
   State<MainNavigation> createState() => _MainNavigationState();
@@ -92,22 +51,27 @@ class MainNavigation extends StatefulWidget {
 
 class _MainNavigationState extends State<MainNavigation> {
   late int _selectedIndex;
+  late final List<Widget> _pages;
 
-  final List<Widget> _pages = [
-    home1.HomePage(),
-    CoursesPage(),
-    // ← And here too, for your primary navigation:
-    RootScreen(
-      onHome: () => mainNavigationKey.currentState?.updateSelectedIndex(0),
-    ),
-    TransportationPage(),
-    EditProfilePage(),
-  ];
+  void updateSelectedIndex(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     _selectedIndex = widget.initialSelectedIndex;
+    _pages = [
+      home1.HomePage(),
+      CoursesPage(),
+      RootScreen(
+        onHome: () => updateSelectedIndex(0),
+      ),
+      TransportationPage(),
+      EditProfilePage(),
+    ];
   }
 
   @override
@@ -125,11 +89,6 @@ class _MainNavigationState extends State<MainNavigation> {
   }
 
   void _onItemTapped(int index) {
-    setState(() => _selectedIndex = index);
-  }
-
-  /// Called by RootScreen via the global key.
-  void updateSelectedIndex(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -143,18 +102,6 @@ class _MainNavigationState extends State<MainNavigation> {
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),
-    );
-  }
-}
-
-class PlaceholderWidget extends StatelessWidget {
-  final String label;
-  const PlaceholderWidget({super.key, required this.label});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(label)),
-      body: Center(child: Text(label, style: const TextStyle(fontSize: 24))),
     );
   }
 }
