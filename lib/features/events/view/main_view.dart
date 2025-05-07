@@ -44,16 +44,16 @@ class MainView extends StatelessWidget {
     ),
     PageViewModel(
       pageNumber: 4,
-      title: 'OpenSenseMap',
+      title: 'Microsoft Student Partners',
       description:
-          'OpenSenseMap station for environmental sensor data, used in our HiveBox beekeeping project.',
+          'Microsoft Student Partners at Shoubra provide resources, workshops, and events to enhance tech skills.',
       imageAsset: 'assets/images/4.png',
     ),
     PageViewModel(
       pageNumber: 5,
-      title: 'InnovEgypt',
-      description:
-          'The InnovEgypt Foundation supports student-led tech initiatives and startup ideas.',
+      title: 'ICPC Shoubra',
+      description: 
+          'The ICPC Shoubra team is a competitive programming group that participates in the International Collegiate Programming Contest.',
       imageAsset: 'assets/images/5.png',
     ),
     PageViewModel(
@@ -75,11 +75,12 @@ class MainView extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
+          surfaceTintColor: Colors.white,
           title: const Text('Student Partners & Events',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF445B70),
+                color: Colors.black,
               )),
           backgroundColor: Colors.white,
           leading: IconButton(
