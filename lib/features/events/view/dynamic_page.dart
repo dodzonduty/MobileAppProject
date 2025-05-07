@@ -47,6 +47,7 @@ class DynamicPage extends StatelessWidget {
       body: SafeArea(
         child: Container(
           color: Colors.white,
+          height: double.infinity,
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
             child: Column(
