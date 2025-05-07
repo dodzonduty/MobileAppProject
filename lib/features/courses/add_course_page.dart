@@ -55,7 +55,8 @@ class _AddCoursePageState extends State<AddCoursePage> {
         ),
       );
       if (successCount > 0) {
-        Navigator.pop(context, true); // Return true to indicate successful enrollment
+        Navigator.pop(
+            context, true); // Return true to indicate successful enrollment
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -67,6 +68,7 @@ class _AddCoursePageState extends State<AddCoursePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: CustomScrollView(
@@ -86,7 +88,8 @@ class _AddCoursePageState extends State<AddCoursePage> {
                           itemCount: _allCourses.length,
                           itemBuilder: (context, index) {
                             final course = _allCourses[index];
-                            final isSelected = _selectedCourseIds.contains(course['course_ID']);
+                            final isSelected = _selectedCourseIds
+                                .contains(course['course_ID']);
                             return CheckboxListTile(
                               title: Text(course['name']),
                               subtitle: Text(
@@ -97,7 +100,8 @@ class _AddCoursePageState extends State<AddCoursePage> {
                                   if (value == true) {
                                     _selectedCourseIds.add(course['course_ID']);
                                   } else {
-                                    _selectedCourseIds.remove(course['course_ID']);
+                                    _selectedCourseIds
+                                        .remove(course['course_ID']);
                                   }
                                 });
                               },
