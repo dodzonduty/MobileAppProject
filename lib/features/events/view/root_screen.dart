@@ -1,6 +1,10 @@
 // lib/features/events/view/root_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:project/features/courses/courses.dart';
+import 'package:project/features/home/home_page.dart';
+import 'package:project/features/profile/Profile.dart';
+import 'package:project/features/transport/Transport.dart';
 import 'main_view.dart';
 import 'dynamic_page.dart';
 
@@ -35,10 +39,10 @@ class _RootScreenState extends State<RootScreen> {
                 late Widget page;
                 switch (i) {
                   case 0:
-                    page = _placeholder('Home');
+                    page = HomePage();
                     break;
                   case 1:
-                    page = _placeholder('Library');
+                    page = CoursesPage();
                     break;
                   case 2:
                     page = MainView(
@@ -64,10 +68,10 @@ class _RootScreenState extends State<RootScreen> {
                     );
                     break;
                   case 3:
-                    page = _placeholder('Transit');
+                    page = TransportationPage();
                     break;
                   default:
-                    page = _placeholder('Profile');
+                    page = EditProfilePage();
                 }
                 return MaterialPageRoute(builder: (_) => page);
               },
@@ -75,13 +79,6 @@ class _RootScreenState extends State<RootScreen> {
           );
         }),
       ),
-    );
-  }
-
-  Widget _placeholder(String label) {
-    return Scaffold(
-      appBar: AppBar(title: Text(label)),
-      body: Center(child: Text(label, style: const TextStyle(fontSize: 24))),
     );
   }
 }
