@@ -32,6 +32,7 @@ class DynamicPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.white,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
         elevation: 0,

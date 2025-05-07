@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; 
 import 'package:project/features/courses/courses.dart';
 import 'package:project/features/profile/Profile.dart';
 import 'features/auth/SplashScreen.dart';
@@ -35,7 +36,6 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/home': (context) => MainNavigation(),
-        '/home2': (context) => home1.HomePage(),
       },
     );
   }
@@ -65,12 +65,12 @@ class _MainNavigationState extends State<MainNavigation> {
     _selectedIndex = widget.initialSelectedIndex;
     _pages = [
       home1.HomePage(),
-      CoursesPage(),
+      CoursesPage(onBackToHome: () => updateSelectedIndex(0)),
       RootScreen(
         onHome: () => updateSelectedIndex(0),
       ),
       TransportationPage(),
-      EditProfilePage(),
+      EditProfilePage(onBackToHome: () => updateSelectedIndex(0)),
     ];
   }
 
@@ -94,13 +94,52 @@ class _MainNavigationState extends State<MainNavigation> {
     });
   }
 
+  // Handle physical back button
+  Future<bool> _onWillPop() async {
+    print('WillPopScope triggered, selectedIndex: $_selectedIndex, canPop: ${Navigator.of(context).canPop()}');
+    if (_selectedIndex == 0) {
+      // Show confirmation dialog
+      final shouldExit = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Exit App'),
+          content: Text('Are you sure you want to exit?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text('Exit'),
+            ),
+          ],
+        ),
+      );
+      print('Should exit: $shouldExit');
+      if (shouldExit == true) {
+        SystemNavigator.pop(); // Explicitly exit the app
+        return true; // Allow default pop (fallback)
+      }
+      return false; // Stay in app if canceled
+    } else {
+      setState(() {
+        _selectedIndex = 0; // Switch to HomePage
+      });
+      return false; // Prevent default pop
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(index: _selectedIndex, children: _pages),
-      bottomNavigationBar: BottomNavigationBarWidget(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        body: IndexedStack(index: _selectedIndex, children: _pages),
+        bottomNavigationBar: BottomNavigationBarWidget(
+          selectedIndex: _selectedIndex,
+          onItemTapped: _onItemTapped,
+        ),
       ),
     );
   }

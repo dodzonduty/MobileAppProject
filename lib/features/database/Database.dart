@@ -31,7 +31,7 @@ class DatabaseHelper {
     await db.execute('''
       CREATE TABLE student (
         user_id TEXT,
-        ID INTEGER PRIMARY KEY,
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         email TEXT NOT NULL UNIQUE,
         phone TEXT,
@@ -130,9 +130,9 @@ class DatabaseHelper {
       await db.rawInsert(query);
     }
 
-     // Insert session data
+    // Insert session data
     List<String> sessionQueries = [
-       //group 1 computer
+      //group 1 computer
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time,class_no) VALUES (10613, 'CCE414', 'DR: Mohammed Hussien', 'Lecture', 'Sunday', '9:00', '10:30','NP200')''',
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time,class_no) VALUES (10617, 'CCE413', 'DR: Walaa Gouda', 'Lecture', 'Sunday', '10:40', '12:10','NP100')''',
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time, class_no) VALUES (10619, 'CCE413', 'ENG: Mohammed Muhie', 'Lab', 'Tuesday', '02:10', '4:30','SB5-09')''',
@@ -144,7 +144,6 @@ class DatabaseHelper {
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time, class_no) VALUES (10668, 'CCE412', 'TA: Mostafa Amin', 'Lab', 'Tuesday', '10:40', '12:55','NP103')''',
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time, class_no) VALUES (10667, 'CCE412', 'DR: Lamiaa ALrefaai', 'Lecture', 'Wednesday', '09:00', '10:30','NP305')''',
       //group 1 First semester
-      
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time, class_no) VALUES (10650, 'CCE401', 'DR: Ali Gomaa & DR: Shimaa Salama', 'Lecture', 'Wednesday', '09:00', '10:30','NP103')''',
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time, class_no) VALUES (10652, 'CCE401', 'TA: Salah Khalil', 'Lab', 'Tuesday', '09:45', '12:10','SB5-02')''',
       '''INSERT INTO session (session_ID, course_ID, instructor, type, day, start_time, end_time, class_no) VALUES (10674, 'CCE404', 'DR: Michael Nasif & DR: Christina' , 'Lecture', 'Wednesday', '10:40', '12:10','NP104')''',
@@ -185,23 +184,79 @@ class DatabaseHelper {
     print("Initial data inserted.");
   }
 
-  Future<List<Map>> readData(String sql) async {
+  Future<List<Map>> readData(String sql, [List<dynamic>? args]) async {
     Database? mydb = await db;
-    return await mydb!.rawQuery(sql);
+    return await mydb!.rawQuery(sql, args);
   }
 
-  Future<int> insertData(String sql) async {
+  Future<int> insertData(String sql, [List<dynamic>? args]) async {
     Database? mydb = await db;
-    return await mydb!.rawInsert(sql);
+    return await mydb!.rawInsert(sql, args);
   }
 
-  Future<int> updateData(String sql) async {
+  Future<int> updateData(String sql, [List<dynamic>? args]) async {
     Database? mydb = await db;
-    return await mydb!.rawUpdate(sql);
+    return await mydb!.rawUpdate(sql, args);
   }
 
-  Future<int> deleteData(String sql) async {
+  Future<int> deleteData(String sql, [List<dynamic>? args]) async {
     Database? mydb = await db;
-    return await mydb!.rawDelete(sql);
+    return await mydb!.rawDelete(sql, args);
+  }
+
+  // Ensure a student record exists for the Firebase user
+  Future<int> ensureStudentExists(String userId, String name, String email) async {
+    Database? mydb = await db;
+    List<Map> result = await mydb!.rawQuery(
+      'SELECT ID FROM student WHERE user_id = ?',
+      [userId],
+    );
+
+    if (result.isNotEmpty) {
+      print('Student found with ID: ${result[0]['ID']}');
+      return result[0]['ID'] as int;
+    } else {
+      int id = await mydb.rawInsert(
+        'INSERT INTO student (user_id, name, email) VALUES (?, ?, ?)',
+        [userId, name, email],
+      );
+      print('New student created with ID: $id');
+      return id;
     }
+  }
+
+  // Fetch all courses from the database
+  Future<List<Map>> getAllCourses() async {
+    return await readData('SELECT * FROM course');
+  }
+
+  // Insert enrollment for a student
+  Future<int> enrollStudent(int studentId, String courseId) async {
+    try {
+      int result = await insertData(
+        'INSERT OR IGNORE INTO enrollment (student_id, course_ID) VALUES (?, ?)',
+        [studentId, courseId],
+      );
+      print('Enrollment result for student $studentId, course $courseId: $result');
+      return result;
+    } catch (e) {
+      print('Error enrolling student: $e');
+      return 0;
+    }
+  }
+
+  // Delete enrollment for a student
+  Future<int> deleteEnrollment(int studentId, String courseId) async {
+    try {
+      int result = await deleteData(
+        'DELETE FROM enrollment WHERE student_id = ? AND course_ID = ?',
+        [studentId, courseId],
+      );
+      print('Delete result for student $studentId, course $courseId: $result');
+      return result;
+    } catch (e) {
+      print('Error deleting enrollment: $e');
+      return 0;
+    }
+  }
 }
