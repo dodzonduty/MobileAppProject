@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../view/page_view_model.dart';
+import '../model/page_view_model.dart';
 
 class MainController extends ChangeNotifier {
   int _selectedIndex = 2;
