@@ -5,8 +5,8 @@ import 'package:project/features/courses/courses.dart';
 import 'package:project/features/home/view/home_page.dart';
 import 'package:project/features/profile/Profile.dart';
 import 'package:project/features/transport/Transport.dart';
-import 'main_view.dart';
-import 'dynamic_page.dart';
+import '../view/main_view.dart';
+import '../view/dynamic_page.dart';
 
 class RootScreen extends StatefulWidget {
   /// NEW:
@@ -89,13 +89,6 @@ class _RootScreenState extends State<RootScreen> {
           );
         }),
       ),
-    );
-  }
-
-  Widget _placeholder(String label) {
-    return Scaffold(
-      appBar: AppBar(title: Text(label)),
-      body: Center(child: Text(label, style: const TextStyle(fontSize: 24))),
     );
   }
 }
